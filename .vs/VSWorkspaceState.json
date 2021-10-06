@@ -1,6 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\EjericicioFormacion",
+    "\\EjericicioFormacion\\EjericicioFormacion",
+    "\\EjericicioFormacion\\Test",
+    "\\EjericicioFormacion\\Test\\Test"
   ],
+  "SelectedNode": "\\EjericicioFormacion\\Test\\Test\\DateCalculatorOneDialyTest.cs",
   "PreviewInSolutionExplorer": false
 }

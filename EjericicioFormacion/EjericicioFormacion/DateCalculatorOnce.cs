@@ -6,24 +6,13 @@ using System.Threading.Tasks;
 
 namespace EjericicioFormacion
 {
-    public class DateCalculatorOnce : DateCalculator
+    public abstract class DateCalculatorOnce : DateCalculator
     {
-        private DateTime NextExecutionTime;
-        public DateCalculatorOnce(DateTime CurrentDate, DateTime StartDate, DateTime? EndDate, DateTime NextExecutionTime) 
-            : base(CurrentDate, StartDate, EndDate)
+        protected DateTime ProgrammedTime;
+        public DateCalculatorOnce(DataDateCalculatorOnce InputData)
+            : base(InputData)
         {
-            this.NextExecutionTime = NextExecutionTime;
+            this.ProgrammedTime = InputData.ProgrammedTime;
         }
-
-        public override string GetDescription()
-        {
-            return string.Format("Ocurrs once. Schedule will be used on {0} at {2} starting on {3}",this.NextExecutionTime.Day,this.NextExecutionTime.Hour,base.StartDate);
-        }
-
-        public override DateTime GetNextExecutionTime() => this.NextExecutionTime;
-        
-            
-        
-
     }
 }

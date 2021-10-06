@@ -7,13 +7,14 @@ namespace EjericicioFormacion
         protected readonly DateTime CurrentDate;
         protected readonly DateTime StartDate;
         protected readonly DateTime? EndDate;
-        public DateCalculator(DateTime CurrentDate, DateTime StartDate, DateTime? EndDate)
+        public DateCalculator(DataDateCalculator InputData)
         {
-            this.CurrentDate = CurrentDate;
-            this.StartDate = StartDate;
-            this.EndDate = EndDate;
+            this.CurrentDate = InputData.CurrentDate;
+            this.StartDate = InputData.StartDate;
+            this.EndDate = InputData.EndDate;
         }
-        public abstract DateTime GetNextExecutionTime();
+        public bool Enabled { get; set; } = true;
+        public abstract DateTime? GetNextExecutionTime();
         public abstract string GetDescription();
         
     }

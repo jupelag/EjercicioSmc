@@ -15,11 +15,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Juan\\Source\\Repos\\jupelag\\EjercicioSmc\\EjericicioFormacion\\EjericicioFormacion\\EjericicioFormacion.csproj",
+      "projectUniqueName": "C:\\Users\\Juan\\source\\repos\\jupelag\\EjercicioSmc\\EjericicioFormacion\\EjericicioFormacion\\EjericicioFormacion.csproj",
       "projectName": "EjericicioFormacion",
-      "projectPath": "C:\\Users\\Juan\\Source\\Repos\\jupelag\\EjercicioSmc\\EjericicioFormacion\\EjericicioFormacion\\EjericicioFormacion.csproj",
+      "projectPath": "C:\\Users\\Juan\\source\\repos\\jupelag\\EjercicioSmc\\EjericicioFormacion\\EjericicioFormacion\\EjericicioFormacion.csproj",
       "packagesPath": "C:\\Users\\Juan\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Juan\\Source\\Repos\\jupelag\\EjercicioSmc\\EjericicioFormacion\\EjericicioFormacion\\obj\\",
+      "outputPath": "C:\\Users\\Juan\\source\\repos\\jupelag\\EjercicioSmc\\EjericicioFormacion\\EjericicioFormacion\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -67,7 +67,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.207\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   }

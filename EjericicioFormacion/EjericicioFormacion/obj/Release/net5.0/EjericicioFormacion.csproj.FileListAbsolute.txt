@@ -1,0 +1,12 @@
+C:\Users\Juan\Source\Repos\jupelag\EjercicioSmc\EjericicioFormacion\EjericicioFormacion\bin\Release\net5.0\EjericicioFormacion.deps.json
+C:\Users\Juan\Source\Repos\jupelag\EjercicioSmc\EjericicioFormacion\EjericicioFormacion\bin\Release\net5.0\EjericicioFormacion.dll
+C:\Users\Juan\Source\Repos\jupelag\EjercicioSmc\EjericicioFormacion\EjericicioFormacion\bin\Release\net5.0\ref\EjericicioFormacion.dll
+C:\Users\Juan\Source\Repos\jupelag\EjercicioSmc\EjericicioFormacion\EjericicioFormacion\bin\Release\net5.0\EjericicioFormacion.pdb
+C:\Users\Juan\Source\Repos\jupelag\EjercicioSmc\EjericicioFormacion\EjericicioFormacion\obj\Release\net5.0\EjericicioFormacion.csproj.AssemblyReference.cache
+C:\Users\Juan\Source\Repos\jupelag\EjercicioSmc\EjericicioFormacion\EjericicioFormacion\obj\Release\net5.0\EjericicioFormacion.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Juan\Source\Repos\jupelag\EjercicioSmc\EjericicioFormacion\EjericicioFormacion\obj\Release\net5.0\EjericicioFormacion.AssemblyInfoInputs.cache
+C:\Users\Juan\Source\Repos\jupelag\EjercicioSmc\EjericicioFormacion\EjericicioFormacion\obj\Release\net5.0\EjericicioFormacion.AssemblyInfo.cs
+C:\Users\Juan\Source\Repos\jupelag\EjercicioSmc\EjericicioFormacion\EjericicioFormacion\obj\Release\net5.0\EjericicioFormacion.csproj.CoreCompileInputs.cache
+C:\Users\Juan\Source\Repos\jupelag\EjercicioSmc\EjericicioFormacion\EjericicioFormacion\obj\Release\net5.0\EjericicioFormacion.dll
+C:\Users\Juan\Source\Repos\jupelag\EjercicioSmc\EjericicioFormacion\EjericicioFormacion\obj\Release\net5.0\ref\EjericicioFormacion.dll
+C:\Users\Juan\Source\Repos\jupelag\EjercicioSmc\EjericicioFormacion\EjericicioFormacion\obj\Release\net5.0\EjericicioFormacion.pdb
