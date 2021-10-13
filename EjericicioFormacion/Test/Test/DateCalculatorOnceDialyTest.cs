@@ -16,10 +16,8 @@ namespace Test.Test
         [InlineData("2020-01-04", "2020-01-01", "2020-02-1", "2020, 01, 08, 14:00:00", false)]
         public void DateCalculatorOneDialy_Return_Correct_Date(string CurrentDate, string StartDate, string EndDate, string ProgrammedDate, bool Enabled)
         {
-            var Data = new DataDateCalculatorOnce()
+            var Data = new DataDateCalculatorOnce(DateTime.Parse(CurrentDate), DateTime.Parse(StartDate))
             {
-                CurrentDate = DateTime.Parse(CurrentDate),
-                StartDate = DateTime.Parse(StartDate),
                 EndDate = DateTime.Parse(EndDate),
                 ProgrammedTime = DateTime.Parse(ProgrammedDate)
             };
@@ -32,10 +30,8 @@ namespace Test.Test
         [Fact]
         public void DateCalculatorOneDialy_StartDate_BiggerThan_ProgrammingDate_Return_Null()
         {
-            var Data = new DataDateCalculatorOnce()
+            var Data = new DataDateCalculatorOnce(DateTime.Parse("2020-01-04"), DateTime.Parse("2020-10-04"))
             {
-                CurrentDate = DateTime.Parse("2020-01-04"),
-                StartDate = DateTime.Parse("2020-10-04"),
                 ProgrammedTime = DateTime.Parse("2020-01-08")
             };
             var Calculator = new DateCalculatorOnceDialy(Data);
@@ -44,10 +40,8 @@ namespace Test.Test
         [Fact]
         public void DateCalculatorOneDialy_ProgrammingDate_BiggerThan_EndDate_Return_Null()
         {
-            var Data = new DataDateCalculatorOnce()
+            var Data = new DataDateCalculatorOnce(DateTime.Parse("2020-01-04"), DateTime.Parse("2020-01-01"))
             {
-                CurrentDate = DateTime.Parse("2020-01-04"),
-                StartDate = DateTime.Parse("2020-01-01"),
                 ProgrammedTime = DateTime.Parse("2020-01-08"),
                 EndDate = DateTime.Parse("2020-01-05")
             };
@@ -59,10 +53,8 @@ namespace Test.Test
         [InlineData("2020-01-04", "2020-01-01", "2020-02-1", "2020, 01, 08, 14:00:00", false)]
         public void DateCalculatorOneDialy_Return_Correct_Description(string CurrentDate, string StartDate, string EndDate, string ProgrammedDate, bool Enabled)
         {
-            var Data = new DataDateCalculatorOnce()
+            var Data = new DataDateCalculatorOnce(DateTime.Parse(CurrentDate), DateTime.Parse(StartDate))
             {
-                CurrentDate = DateTime.Parse(CurrentDate),
-                StartDate = DateTime.Parse(StartDate),
                 EndDate = DateTime.Parse(EndDate),
                 ProgrammedTime = DateTime.Parse(ProgrammedDate)
             };
@@ -77,10 +69,8 @@ namespace Test.Test
         [Fact]
         public void DateCalculatorOneDialy_StartDate_BiggerThan_ProgrammingDate_Return_Correct_Description()
         {
-            var Data = new DataDateCalculatorOnce()
+            var Data = new DataDateCalculatorOnce(DateTime.Parse("2020-01-04"), DateTime.Parse("2020-10-04"))
             {
-                CurrentDate = DateTime.Parse("2020-01-04"),
-                StartDate = DateTime.Parse("2020-10-04"),
                 ProgrammedTime = DateTime.Parse("2020-01-08")
             };
             var Calculator = new DateCalculatorOnceDialy(Data);
@@ -89,10 +79,8 @@ namespace Test.Test
         [Fact]
         public void DateCalculatorOneDialy_ProgrammingDate_BiggerThan_EndDate_Return_Correct_Description()
         {
-            var Data = new DataDateCalculatorOnce()
+            var Data = new DataDateCalculatorOnce(DateTime.Parse("2020-01-04"), DateTime.Parse("2020-01-01"))
             {
-                CurrentDate = DateTime.Parse("2020-01-04"),
-                StartDate = DateTime.Parse("2020-01-01"),
                 ProgrammedTime = DateTime.Parse("2020-01-08"),
                 EndDate = DateTime.Parse("2020-01-05")
             };

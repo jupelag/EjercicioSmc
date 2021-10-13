@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EjericicioFormacion
 {
@@ -13,33 +9,32 @@ namespace EjericicioFormacion
         public DateCalculatorRecurringDialy(DataDateCalculatorRecurring InputData) 
             : base(InputData)
         {
-            this.daysBetweenExecutions = InputData.DaysBetweenExecutions;
+            this.daysBetweenExecutions = DataDateCalculatorRecurringDialyValidator.ValidateDays(InputData);
         }
         private bool MustBeRun
         {
             get
-            {                
-                return (base.Enabled == false ||
-                        base.CurrentDate < base.StartDate ||
-                        base.CurrentDate > EndDate ||
-                        this.nextExecutionTime > EndDate) == false;
-            }
-        }
-        private DateTime nextExecutionTime
-        {
-            get 
             {
-                var NewExecutionTime = base.CurrentDate;
-                NewExecutionTime.AddDays(this.daysBetweenExecutions);
-                return NewExecutionTime;
+                if (base.Enabled == false) { return false; }
+                return (base.Enabled == false ||
+                        this.nextExecutionTime < base.StartDate ||
+                        (base.EndDate != null && this.nextExecutionTime > base.EndDate)) == false;
             }
         }
+        private DateTime nextExecutionTime => base.CurrentDate.AddDays(this.daysBetweenExecutions);
+
         public override string GetDescription()
         {
             var NextExecutiontime = this.GetNextExecutionTime();
             if (NextExecutiontime != null)
             {
-                return string.Format("Ocurrs every day. Schedule will be used on {0} starting on {1}", NextExecutiontime.Value.Day, base.StartDate);
+                return string.Format(Resources.DateCalculatorRecurringDialyResources.Description,
+                    this.daysBetweenExecutions > 1 ?
+                        this.daysBetweenExecutions + " " + Resources.DateCalculatorRecurringDialyResources.Days : 
+                        Resources.DateCalculatorRecurringDialyResources.Day,
+                    NextExecutiontime.Value.ToString("dd/MM/yyyy"),
+                    NextExecutiontime.Value.ToString("HH:mm"),
+                    base.StartDate.ToString("dd/MM/yyyy HH:mm"));
             }
             return "Occurs once. Schedule will not be used";
         }
