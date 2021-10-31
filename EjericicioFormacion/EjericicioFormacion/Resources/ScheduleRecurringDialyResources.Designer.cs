@@ -22,14 +22,14 @@ namespace EjericicioFormacion.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class DateCalculatorRecurringDialyResources {
+    internal class ScheduleRecurringDialyResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal DateCalculatorRecurringDialyResources() {
+        internal ScheduleRecurringDialyResources() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace EjericicioFormacion.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EjericicioFormacion.Resources.DateCalculatorRecurringDialyResources", typeof(DateCalculatorRecurringDialyResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EjericicioFormacion.Resources.ScheduleRecurringDialyResources", typeof(ScheduleRecurringDialyResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -79,7 +79,7 @@ namespace EjericicioFormacion.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Ocurrs every {0}. Schedule will be used on {1} at {2} starting on {3}.
+        ///   Busca una cadena traducida similar a Ocurrs every {0} between {1} and {2}. Schedule will be used on {3} at {4} starting on {5}.
         /// </summary>
         internal static string Description {
             get {
