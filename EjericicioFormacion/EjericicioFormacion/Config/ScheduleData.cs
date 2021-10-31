@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EjericicioFormacion.Enumerations;
 
 namespace EjericicioFormacion.Config
 {
@@ -25,8 +26,19 @@ namespace EjericicioFormacion.Config
         }
 
         public DateTime ProgrammedTime { get; set; }
-    }   
-    public class ScheduleRecurringDialyData : ScheduleData
+    }
+    public class ScheduleRecurringataData : ScheduleData
+    {
+        public ScheduleRecurringataData(DateTime CurrentDate, DateTime StartDate) : base(CurrentDate, StartDate)
+        {
+        }
+        public int HoursBetweenExecutions { get; set; }
+        public int MinBetweenExecutions { get; set; }
+        public int SecBetweenExecutions { get; set; }
+        public TimeSpan? StartHour { get; set; }
+        public TimeSpan? EndHour { get; set; }
+    }
+    public class ScheduleRecurringDialyData : ScheduleRecurringataData
     {
         public ScheduleRecurringDialyData(DateTime CurrentDate, DateTime StartDate) 
             : base(CurrentDate, StartDate)
@@ -34,10 +46,16 @@ namespace EjericicioFormacion.Config
         }
 
         public int DaysBetweenExecutions { get; set; }
-        public int HoursBetweenExecutions { get; set; }
-        public int MinBetweenExecutions { get; set; }
-        public int SecBetweenExecutions { get; set; }
-        public TimeSpan? StartHour { get; set; }
-        public TimeSpan? EndHour { get; set; }
+
+    }
+    public class ScheduleRecurringWeeklyData : ScheduleRecurringataData
+    {
+        public ScheduleRecurringWeeklyData(DateTime CurrentDate, DateTime StartDate) 
+            : base(CurrentDate, StartDate)
+        {
+        }
+
+        public int WeeksBetweenExecutions { get; set; }
+        public DaysOfTheWeek ExecutionDays { get; set; }
     }
 }
