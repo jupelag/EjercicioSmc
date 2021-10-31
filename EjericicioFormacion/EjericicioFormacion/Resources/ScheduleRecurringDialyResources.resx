@@ -124,7 +124,7 @@
     <value>days</value>
   </data>
   <data name="Description" xml:space="preserve">
-    <value>Ocurrs every {0}. Schedule will be used on {1} at {2} starting on {3}</value>
+    <value>Ocurrs every {0} between {1} and {2}. Schedule will be used on {3} at {4} starting on {5}</value>
   </data>
   <data name="NullNextExecutionTimDescripcion" xml:space="preserve">
     <value>Occurs every {0}. Schedule will not be used</value>

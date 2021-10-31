@@ -10,26 +10,26 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Update="Resources\DateCalculatorOnceDialyResources.Designer.cs">
+    <Compile Update="Resources\ScheduleOnceDialyResources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>DateCalculatorOnceDialyResources.resx</DependentUpon>
+      <DependentUpon>ScheduleOnceDialyResources.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\DateCalculatorRecurringDialyResources.Designer.cs">
+    <Compile Update="Resources\ScheduleRecurringDialyResources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>DateCalculatorRecurringDialyResources.resx</DependentUpon>
+      <DependentUpon>ScheduleRecurringDialyResources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Resources\DateCalculatorOnceDialyResources.resx">
+    <EmbeddedResource Update="Resources\ScheduleOnceDialyResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>DateCalculatorOnceDialyResources.Designer.cs</LastGenOutput>
+      <LastGenOutput>ScheduleOnceDialyResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\DateCalculatorRecurringDialyResources.resx">
+    <EmbeddedResource Update="Resources\ScheduleRecurringDialyResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>DateCalculatorRecurringDialyResources.Designer.cs</LastGenOutput>
+      <LastGenOutput>ScheduleRecurringDialyResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 
