@@ -13,3 +13,4 @@ C:\Users\Juan\source\repos\jupelag\EjercicioSmc\EjericicioFormacion\EjericicioFo
 C:\Users\Juan\source\repos\jupelag\EjercicioSmc\EjericicioFormacion\EjericicioFormacion\obj\Debug\net5.0\EjericicioFormacion.csproj.GenerateResource.cache
 C:\Users\Juan\source\repos\jupelag\EjercicioSmc\EjericicioFormacion\EjericicioFormacion\obj\Debug\net5.0\EjericicioFormacion.Resources.ScheduleOnceDialyResources.resources
 C:\Users\Juan\source\repos\jupelag\EjercicioSmc\EjericicioFormacion\EjericicioFormacion\obj\Debug\net5.0\EjericicioFormacion.Resources.ScheduleRecurringDialyResources.resources
+C:\Users\Juan\source\repos\jupelag\EjercicioSmc\EjericicioFormacion\EjericicioFormacion\obj\Debug\net5.0\EjericicioFormacion.Resources.ScheduleRecurringWeeklyResources.resources

@@ -7,6 +7,7 @@ using EjericicioFormacion.Enumerations;
 using EjericicioFormacion.Resources;
 
 
+
 namespace EjericicioFormacion
 {
     public class ScheduleRecurringWeekly : ScheduleRecurring
@@ -32,6 +33,35 @@ namespace EjericicioFormacion
             this.endHour = InputData.EndHour ?? TimeSpan.Parse("23:59");
             this.executionDays = InputData.ExecutionDays;
             this.CalculateStartTime();
+        }
+        private string executionDaysStr
+        {
+            get
+            {
+                return string.Join(", ", Enum.GetValues(typeof(DayOfWeek))
+                                            .OfType<DayOfWeek>()
+                                            .Where(D => IsInWeekDays(D))
+                                            .Select(D => D.ToString()));
+            }
+        }
+        private string NumberBetweenExecutions
+        {
+            get 
+            {
+                if (this.hoursBetweenExecutions > 0)
+                {
+                    return this.hoursBetweenExecutions + " " + ScheduleRecurringWeeklyResources.Hours;
+                }
+                if (this.minsBetweenExecutions > 0)
+                {
+                    return this.minsBetweenExecutions + " " + ScheduleRecurringWeeklyResources.Minutes;
+                }
+                if (this.secsBetweenExecutions > 0)
+                {
+                    return this.secsBetweenExecutions + " " + ScheduleRecurringWeeklyResources.Seconds;
+                }
+                return string.Empty;
+            }
         }
         private void CalculateStartTime()
         {
@@ -133,19 +163,19 @@ namespace EjericicioFormacion
 
         private string GetDescription(DateTime? nextExecutionTime)
         {
-            //if (nextExecutionTime != null)
-            //{
-            //    return string.Format(ScheduleRecurringDialyResources.Description,
-            //        this.daysBetweenExecutions > 1 ?
-            //            this.daysBetweenExecutions + " " + ScheduleRecurringDialyResources.Days :
-            //            ScheduleRecurringDialyResources.Day,
-            //        this.startHour,
-            //        this.endHour,
-            //        nextExecutionTime.Value.ToString("dd/MM/yyyy"),
-            //        nextExecutionTime.Value.ToString("HH:mm"),
-            //        base.StartDate.ToString("dd/MM/yyyy HH:mm"));
-            //}
-            return "Occurs Recurring Dialy. Schedule will not be used";
+            if (nextExecutionTime != null)
+            {
+
+                return string.Format(ScheduleRecurringWeeklyResources.Description,
+                    this.weeksBetweenExecutions > 1 ? this.weeksBetweenExecutions + " " + ScheduleRecurringWeeklyResources.Weeks :
+                        ScheduleRecurringWeeklyResources.Week,
+                    this.executionDaysStr,
+                    this.NumberBetweenExecutions,
+                    this.startHour,
+                    this.endHour,
+                    base.StartDate.ToString("dd/MM/yyyy HH:mm"));
+            }
+            return "Occurs Recurring Weekly. Schedule will not be used";
         }
 
         public override DateTime? GetNextExecutionTime(out string description)

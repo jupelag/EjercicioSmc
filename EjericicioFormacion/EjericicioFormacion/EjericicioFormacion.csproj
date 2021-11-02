@@ -20,6 +20,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>ScheduleRecurringDialyResources.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\ScheduleRecurringWeeklyResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ScheduleRecurringWeeklyResources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -30,6 +35,10 @@
     <EmbeddedResource Update="Resources\ScheduleRecurringDialyResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ScheduleRecurringDialyResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\ScheduleRecurringWeeklyResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ScheduleRecurringWeeklyResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 
