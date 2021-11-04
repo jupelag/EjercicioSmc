@@ -175,5 +175,31 @@ namespace Test.Test
             calculator.GetNextExecutionTime(out description);
             description.Should().Be("Occurs Recurring Dialy. Schedule will not be used");
         }
+        [Fact]
+        public void ScheduleRecurringDialy_CurrentDateTimeMaxVaule_return_correct_exception()
+        {
+            var Data = new ScheduleRecurringDialyData(DateTime.MaxValue, DateTime.Parse("01-01-2020"))
+            {               
+                DaysBetweenExecutions = 2,
+                HoursBetweenExecutions = 2,
+                StartHour = TimeSpan.Parse("04:00"),
+                EndHour = TimeSpan.Parse("08:00")
+            };
+            FluentActions.Invoking(() => new ScheduleRecurringDialy(Data)).Should().ThrowExactly<ArgumentOutOfRangeException>();
+        }
+        [Fact]
+        public void ScheduleRecurringWeekly_GoToDateTimeMaxVaule_return_correct_exception()
+        {
+            var Data = new ScheduleRecurringDialyData(DateTime.Parse("31-12-9999"), DateTime.Parse("01-01-2020"))
+            {
+                DaysBetweenExecutions = 2,
+                HoursBetweenExecutions = 2,
+                StartHour = TimeSpan.Parse("04:00"),
+                EndHour = TimeSpan.Parse("04:00")
+            };
+            var calculator = new ScheduleRecurringDialy(Data);
+            calculator.GetNextExecutionTime(out _);
+            FluentActions.Invoking(() => calculator.GetNextExecutionTime(out _)).Should().ThrowExactly<ArgumentOutOfRangeException>();
+        }
     }
 }
