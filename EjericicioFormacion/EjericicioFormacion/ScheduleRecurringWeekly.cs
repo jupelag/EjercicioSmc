@@ -32,7 +32,14 @@ namespace EjericicioFormacion
             this.startHour = InputData.StartHour ?? new TimeSpan();
             this.endHour = InputData.EndHour ?? TimeSpan.Parse("23:59");
             this.executionDays = InputData.ExecutionDays;
-            this.CalculateStartTime();
+            try
+            {
+                this.CalculateStartTime();
+            }
+            catch(ArgumentOutOfRangeException)
+            {
+                throw new ArgumentOutOfRangeException("has exceeded the maximum allowed date value.");
+            }
         }
         private string executionDaysStr
         {
@@ -75,6 +82,10 @@ namespace EjericicioFormacion
             {
                 this.startTime = this.CurrentDate;
             }
+            else if (isInPeriod && isInHour == false && base.CurrentDate > base.StartDate && base.CurrentDate.TimeOfDay < this.startHour)
+            {
+                this.startTime = new DateTime(base.CurrentDate.Year, base.CurrentDate.Month, base.CurrentDate.Day).AddTicks(this.startHour.Ticks);
+            }
             else if (base.CurrentDate.DayOfYear.Equals(base.StartDate.DayOfYear) && base.CurrentDate.TimeOfDay > this.startHour)
             {
                 this.startTime = this.AddTime(this.CurrentDate);
@@ -82,7 +93,7 @@ namespace EjericicioFormacion
             if (this.IsInWeekDays(this.startTime.DayOfWeek) == false)
             {
                 this.startTime = this.GetNextDayInWeekDays(this.startTime);
-            }
+            }            
         }
         private bool IsInTime(DateTime time)
         {
@@ -189,7 +200,13 @@ namespace EjericicioFormacion
                 description = this.GetDescription(null);
                 return null;
             }
-            this.CalculateNextExecutionTime();
+            try
+            {
+                this.CalculateNextExecutionTime();
+            } catch (ArgumentOutOfRangeException)
+            {
+                throw new ArgumentOutOfRangeException("has exceeded the maximum allowed date value.");
+            }
             if (this.IsInTime(this.nextExecutionTime.Value))
             {
                 description = this.GetDescription(this.nextExecutionTime);
