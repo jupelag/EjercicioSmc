@@ -201,5 +201,21 @@ namespace Test.Test
             calculator.GetNextExecutionTime(out _);
             FluentActions.Invoking(() => calculator.GetNextExecutionTime(out _)).Should().ThrowExactly<ArgumentOutOfRangeException>();
         }
+        [Fact]
+        public void ScheduleRecurringWeekly_CurrentDate_Equals_StarDate_Bigger_endHour_Return_Correct_Date()
+        {
+            var Data = new ScheduleRecurringDialyData(DateTime.Parse("01-01-2020 04:02"), DateTime.Parse("01-01-2020"))
+            {
+                EndDate = DateTime.Parse("04-1-2020"),
+                DaysBetweenExecutions = 2,
+                SecBetweenExecutions = 30,
+                StartHour = TimeSpan.Parse("04:00"),
+                EndHour = TimeSpan.Parse("04:01")
+            };
+            var calculator = new ScheduleRecurringDialy(Data);
+            calculator.GetNextExecutionTime(out _).Should().Be(DateTime.Parse("02-01-2020 04:00:00"));
+            calculator.GetNextExecutionTime(out _).Should().Be(DateTime.Parse("02-01-2020 04:00:30"));
+            calculator.GetNextExecutionTime(out _).Should().Be(DateTime.Parse("02-01-2020 04:01:00"));
+        }
     }
 }

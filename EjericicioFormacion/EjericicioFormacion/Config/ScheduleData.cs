@@ -27,9 +27,9 @@ namespace EjericicioFormacion.Config
 
         public DateTime ProgrammedTime { get; set; }
     }
-    public class ScheduleRecurringataData : ScheduleData
+    public class ScheduleRecurringData : ScheduleData
     {
-        public ScheduleRecurringataData(DateTime CurrentDate, DateTime StartDate) : base(CurrentDate, StartDate)
+        public ScheduleRecurringData(DateTime CurrentDate, DateTime StartDate) : base(CurrentDate, StartDate)
         {
         }
         public int HoursBetweenExecutions { get; set; }
@@ -38,7 +38,7 @@ namespace EjericicioFormacion.Config
         public TimeSpan? StartHour { get; set; }
         public TimeSpan? EndHour { get; set; }
     }
-    public class ScheduleRecurringDialyData : ScheduleRecurringataData
+    public class ScheduleRecurringDialyData : ScheduleRecurringData
     {
         public ScheduleRecurringDialyData(DateTime CurrentDate, DateTime StartDate) 
             : base(CurrentDate, StartDate)
@@ -48,7 +48,7 @@ namespace EjericicioFormacion.Config
         public int DaysBetweenExecutions { get; set; }
 
     }
-    public class ScheduleRecurringWeeklyData : ScheduleRecurringataData
+    public class ScheduleRecurringWeeklyData : ScheduleRecurringData
     {
         public ScheduleRecurringWeeklyData(DateTime CurrentDate, DateTime StartDate) 
             : base(CurrentDate, StartDate)

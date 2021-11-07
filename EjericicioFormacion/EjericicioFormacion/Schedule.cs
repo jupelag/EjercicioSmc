@@ -10,6 +10,7 @@ namespace EjericicioFormacion
         protected readonly DateTime? EndDate;
         public Schedule(ScheduleData InputData)
         {
+            if (InputData == null) throw new ArgumentNullException("Input data must not be null");
             this.CurrentDate = InputData.CurrentDate;
             this.StartDate = InputData.StartDate;
             this.EndDate = InputData.EndDate;

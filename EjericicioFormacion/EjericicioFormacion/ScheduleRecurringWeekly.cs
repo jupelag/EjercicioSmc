@@ -13,24 +13,14 @@ namespace EjericicioFormacion
     public class ScheduleRecurringWeekly : ScheduleRecurring
     {
         private readonly int weeksBetweenExecutions;
-        private readonly int hoursBetweenExecutions;
-        private readonly int minsBetweenExecutions;
-        private readonly int secsBetweenExecutions;
         private readonly DaysOfTheWeek executionDays;
-        private readonly TimeSpan startHour;
-        private readonly TimeSpan endHour;
         private DateTime startTime;
         private DateTime? nextExecutionTime;
 
         public ScheduleRecurringWeekly(ScheduleRecurringWeeklyData InputData)
             : base(InputData)
-        {
+        {            
             this.weeksBetweenExecutions = InputData.WeeksBetweenExecutions;
-            this.hoursBetweenExecutions = InputData.HoursBetweenExecutions;
-            this.minsBetweenExecutions = InputData.MinBetweenExecutions;
-            this.secsBetweenExecutions = InputData.SecBetweenExecutions;
-            this.startHour = InputData.StartHour ?? new TimeSpan();
-            this.endHour = InputData.EndHour ?? TimeSpan.Parse("23:59");
             this.executionDays = InputData.ExecutionDays;
             try
             {
@@ -59,15 +49,18 @@ namespace EjericicioFormacion
                 {
                     return this.hoursBetweenExecutions + " " + ScheduleRecurringWeeklyResources.Hours;
                 }
-                if (this.minsBetweenExecutions > 0)
+                else if (this.minsBetweenExecutions > 0)
                 {
                     return this.minsBetweenExecutions + " " + ScheduleRecurringWeeklyResources.Minutes;
                 }
-                if (this.secsBetweenExecutions > 0)
+                else if (this.secsBetweenExecutions > 0)
                 {
                     return this.secsBetweenExecutions + " " + ScheduleRecurringWeeklyResources.Seconds;
                 }
-                return string.Empty;
+                else
+                {
+                    throw new ApplicationException("There must be a stipulated period between executions greater than or equal to zero");
+                }
             }
         }
         private void CalculateStartTime()
@@ -86,7 +79,7 @@ namespace EjericicioFormacion
             {
                 this.startTime = new DateTime(base.CurrentDate.Year, base.CurrentDate.Month, base.CurrentDate.Day).AddTicks(this.startHour.Ticks);
             }
-            else if (base.CurrentDate.DayOfYear.Equals(base.StartDate.DayOfYear) && base.CurrentDate.TimeOfDay > this.startHour)
+            else if (base.CurrentDate.DayOfYear.Equals(base.StartDate.DayOfYear) && base.CurrentDate.TimeOfDay > this.endHour)
             {
                 this.startTime = this.AddTime(this.CurrentDate);
             }
