@@ -8,12 +8,7 @@ namespace EjericicioFormacion
 {
     public class ScheduleRecurringDialy : ScheduleRecurring
     {
-        private readonly int daysBetweenExecutions;
-        private readonly int hoursBetweenExecutions;
-        private readonly int minsBetweenExecutions;
-        private readonly int secsBetweenExecutions;
-        private readonly TimeSpan startHour;
-        private readonly TimeSpan endHour;        
+        private readonly int daysBetweenExecutions;      
         private DateTime startTime;
         private DateTime? nextExecutionTime;
         
@@ -21,11 +16,6 @@ namespace EjericicioFormacion
             : base(InputData)
         {
             this.daysBetweenExecutions = InputData.DaysBetweenExecutions;
-            this.hoursBetweenExecutions = InputData.HoursBetweenExecutions;
-            this.minsBetweenExecutions = InputData.MinBetweenExecutions;
-            this.secsBetweenExecutions = InputData.SecBetweenExecutions;
-            this.startHour = InputData.StartHour ?? new TimeSpan();
-            this.endHour = InputData.EndHour ?? TimeSpan.Parse("23:59");
             try
             {
                 this.CalculateStartTime();
@@ -55,11 +45,7 @@ namespace EjericicioFormacion
             else if (isInPeriod && isInHour == false && base.CurrentDate > base.StartDate && base.CurrentDate.TimeOfDay > this.startHour)
             {
                 this.startTime = this.AddTime(this.CurrentDate);
-            }
-            else if (base.CurrentDate.DayOfYear.Equals(base.StartDate.DayOfYear) && base.CurrentDate.TimeOfDay > this.startHour)
-            {
-                this.startTime = this.AddTime(this.CurrentDate);
-            }             
+            }           
         }
         private bool IsInTime(DateTime time)
         {
@@ -84,7 +70,7 @@ namespace EjericicioFormacion
                 .AddHours(this.hoursBetweenExecutions);
             if (newDate.TimeOfDay.IsInTime(this.startHour, this.endHour) == false)
             {
-                newDate = newDate.AddDays(this.daysBetweenExecutions);
+                newDate = newDate.AddDays(this.nextExecutionTime == null ? 1 : this.daysBetweenExecutions);
                 newDate = new DateTime(newDate.Year, newDate.Month, newDate.Day);
                 newDate = newDate.AddTicks(this.startHour.Ticks);
             }

@@ -1,0 +1,13 @@
+C:\Users\Juan\source\repos\jupelag\EjercicioSmc\EjericicioFormacion\.vs\EjericicioFormacion\v17\lut\0\b\EjericicioFormacion\Debug\net5.0\EjericicioFormacion.deps.json
+C:\Users\Juan\source\repos\jupelag\EjercicioSmc\EjericicioFormacion\.vs\EjericicioFormacion\v17\lut\0\b\EjericicioFormacion\Debug\net5.0\EjericicioFormacion.dll
+C:\Users\Juan\source\repos\jupelag\EjercicioSmc\EjericicioFormacion\.vs\EjericicioFormacion\v17\lut\0\b\EjericicioFormacion\Debug\net5.0\ref\EjericicioFormacion.dll
+C:\Users\Juan\source\repos\jupelag\EjercicioSmc\EjericicioFormacion\.vs\EjericicioFormacion\v17\lut\0\i\EjericicioFormacion\Debug\net5.0\EjericicioFormacion.Resources.ScheduleOnceDialyResources.resources
+C:\Users\Juan\source\repos\jupelag\EjercicioSmc\EjericicioFormacion\.vs\EjericicioFormacion\v17\lut\0\i\EjericicioFormacion\Debug\net5.0\EjericicioFormacion.Resources.ScheduleRecurringDialyResources.resources
+C:\Users\Juan\source\repos\jupelag\EjercicioSmc\EjericicioFormacion\.vs\EjericicioFormacion\v17\lut\0\i\EjericicioFormacion\Debug\net5.0\EjericicioFormacion.Resources.ScheduleRecurringWeeklyResources.resources
+C:\Users\Juan\source\repos\jupelag\EjercicioSmc\EjericicioFormacion\.vs\EjericicioFormacion\v17\lut\0\i\EjericicioFormacion\Debug\net5.0\EjericicioFormacion.csproj.GenerateResource.cache
+C:\Users\Juan\source\repos\jupelag\EjercicioSmc\EjericicioFormacion\.vs\EjericicioFormacion\v17\lut\0\i\EjericicioFormacion\Debug\net5.0\EjericicioFormacion.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Juan\source\repos\jupelag\EjercicioSmc\EjericicioFormacion\.vs\EjericicioFormacion\v17\lut\0\i\EjericicioFormacion\Debug\net5.0\EjericicioFormacion.AssemblyInfoInputs.cache
+C:\Users\Juan\source\repos\jupelag\EjercicioSmc\EjericicioFormacion\.vs\EjericicioFormacion\v17\lut\0\i\EjericicioFormacion\Debug\net5.0\EjericicioFormacion.AssemblyInfo.cs
+C:\Users\Juan\source\repos\jupelag\EjercicioSmc\EjericicioFormacion\.vs\EjericicioFormacion\v17\lut\0\i\EjericicioFormacion\Debug\net5.0\EjericicioFormacion.csproj.CopyComplete
+C:\Users\Juan\source\repos\jupelag\EjercicioSmc\EjericicioFormacion\.vs\EjericicioFormacion\v17\lut\0\i\EjericicioFormacion\Debug\net5.0\EjericicioFormacion.dll
+C:\Users\Juan\source\repos\jupelag\EjercicioSmc\EjericicioFormacion\.vs\EjericicioFormacion\v17\lut\0\i\EjericicioFormacion\Debug\net5.0\ref\EjericicioFormacion.dll
