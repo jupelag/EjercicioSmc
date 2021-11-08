@@ -1,7 +1,7 @@
 ﻿using System;
-using EjericicioFormacion.Config;
+using EjercicioFormacion.Config;
 
-namespace EjericicioFormacion
+namespace EjercicioFormacion
 {
     public abstract class Schedule
     {

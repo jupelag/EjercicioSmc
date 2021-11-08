@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EjericicioFormacion\EjericicioFormacion.csproj" />
+    <ProjectReference Include="..\EjericicioFormacion\EjercicioFormacion.csproj" />
   </ItemGroup>
 
 </Project>

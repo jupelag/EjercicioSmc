@@ -4,12 +4,12 @@
     "C:\\Users\\Juan\\source\\repos\\jupelag\\EjercicioSmc\\EjericicioFormacion\\Test\\Test.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Juan\\source\\repos\\jupelag\\EjercicioSmc\\EjericicioFormacion\\EjericicioFormacion\\EjericicioFormacion.csproj": {
+    "C:\\Users\\Juan\\source\\repos\\jupelag\\EjercicioSmc\\EjericicioFormacion\\EjericicioFormacion\\EjercicioFormacion.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Juan\\source\\repos\\jupelag\\EjercicioSmc\\EjericicioFormacion\\EjericicioFormacion\\EjericicioFormacion.csproj",
-        "projectName": "EjericicioFormacion",
-        "projectPath": "C:\\Users\\Juan\\source\\repos\\jupelag\\EjercicioSmc\\EjericicioFormacion\\EjericicioFormacion\\EjericicioFormacion.csproj",
+        "projectUniqueName": "C:\\Users\\Juan\\source\\repos\\jupelag\\EjercicioSmc\\EjericicioFormacion\\EjericicioFormacion\\EjercicioFormacion.csproj",
+        "projectName": "EjercicioFormacion",
+        "projectPath": "C:\\Users\\Juan\\source\\repos\\jupelag\\EjercicioSmc\\EjericicioFormacion\\EjericicioFormacion\\EjercicioFormacion.csproj",
         "packagesPath": "C:\\Users\\Juan\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\Juan\\source\\repos\\jupelag\\EjercicioSmc\\EjericicioFormacion\\EjericicioFormacion\\obj\\",
         "projectStyle": "PackageReference",
@@ -92,8 +92,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\Juan\\source\\repos\\jupelag\\EjercicioSmc\\EjericicioFormacion\\EjericicioFormacion\\EjericicioFormacion.csproj": {
-                "projectPath": "C:\\Users\\Juan\\source\\repos\\jupelag\\EjercicioSmc\\EjericicioFormacion\\EjericicioFormacion\\EjericicioFormacion.csproj"
+              "C:\\Users\\Juan\\source\\repos\\jupelag\\EjercicioSmc\\EjericicioFormacion\\EjericicioFormacion\\EjercicioFormacion.csproj": {
+                "projectPath": "C:\\Users\\Juan\\source\\repos\\jupelag\\EjercicioSmc\\EjericicioFormacion\\EjericicioFormacion\\EjercicioFormacion.csproj"
               }
             }
           }

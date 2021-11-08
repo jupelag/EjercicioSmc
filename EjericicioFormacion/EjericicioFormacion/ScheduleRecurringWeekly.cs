@@ -2,13 +2,13 @@
 using System.Globalization;
 using System.Linq;
 using EjercicioFormacion.Utilities;
-using EjericicioFormacion.Config;
-using EjericicioFormacion.Enumerations;
-using EjericicioFormacion.Resources;
+using EjercicioFormacion.Config;
+using EjercicioFormacion.Enumerations;
+using EjercicioFormacion.Resources;
 
 
 
-namespace EjericicioFormacion
+namespace EjercicioFormacion
 {
     public class ScheduleRecurringWeekly : ScheduleRecurring
     {
@@ -177,7 +177,7 @@ namespace EjericicioFormacion
                     this.NumberBetweenExecutions,
                     this.startHour,
                     this.endHour,
-                    base.StartDate.ToString("dd/MM/yyyy HH:mm"));
+                    base.StartDate.ToString());
             }
             return "Occurs Recurring Weekly. Schedule will not be used";
         }

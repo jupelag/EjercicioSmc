@@ -1707,14 +1707,14 @@
           "build/netcoreapp1.0/xunit.runner.visualstudio.props": {}
         }
       },
-      "EjericicioFormacion/1.0.0": {
+      "EjercicioFormacion/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "compile": {
-          "bin/placeholder/EjericicioFormacion.dll": {}
+          "bin/placeholder/EjercicioFormacion.dll": {}
         },
         "runtime": {
-          "bin/placeholder/EjericicioFormacion.dll": {}
+          "bin/placeholder/EjercicioFormacion.dll": {}
         }
       }
     }
@@ -5998,15 +5998,15 @@
         "xunit.runner.visualstudio.nuspec"
       ]
     },
-    "EjericicioFormacion/1.0.0": {
+    "EjercicioFormacion/1.0.0": {
       "type": "project",
-      "path": "../EjericicioFormacion/EjericicioFormacion.csproj",
-      "msbuildProject": "../EjericicioFormacion/EjericicioFormacion.csproj"
+      "path": "../EjericicioFormacion/EjercicioFormacion.csproj",
+      "msbuildProject": "../EjericicioFormacion/EjercicioFormacion.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
-      "EjericicioFormacion >= 1.0.0",
+      "EjercicioFormacion >= 1.0.0",
       "FluentAssertions >= 6.1.0",
       "Microsoft.NET.Test.Sdk >= 16.11.0",
       "xunit >= 2.4.1",
@@ -6049,8 +6049,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\Juan\\source\\repos\\jupelag\\EjercicioSmc\\EjericicioFormacion\\EjericicioFormacion\\EjericicioFormacion.csproj": {
-              "projectPath": "C:\\Users\\Juan\\source\\repos\\jupelag\\EjercicioSmc\\EjericicioFormacion\\EjericicioFormacion\\EjericicioFormacion.csproj"
+            "C:\\Users\\Juan\\source\\repos\\jupelag\\EjercicioSmc\\EjericicioFormacion\\EjericicioFormacion\\EjercicioFormacion.csproj": {
+              "projectPath": "C:\\Users\\Juan\\source\\repos\\jupelag\\EjercicioSmc\\EjericicioFormacion\\EjericicioFormacion\\EjercicioFormacion.csproj"
             }
           }
         }

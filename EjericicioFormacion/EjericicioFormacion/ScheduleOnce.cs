@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EjericicioFormacion.Config;
+using EjercicioFormacion.Config;
 
-namespace EjericicioFormacion
+namespace EjercicioFormacion
 {
     public abstract class ScheduleOnce : Schedule
     {

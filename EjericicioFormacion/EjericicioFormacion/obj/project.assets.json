@@ -15,9 +15,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Juan\\source\\repos\\jupelag\\EjercicioSmc\\EjericicioFormacion\\EjericicioFormacion\\EjericicioFormacion.csproj",
-      "projectName": "EjericicioFormacion",
-      "projectPath": "C:\\Users\\Juan\\source\\repos\\jupelag\\EjercicioSmc\\EjericicioFormacion\\EjericicioFormacion\\EjericicioFormacion.csproj",
+      "projectUniqueName": "C:\\Users\\Juan\\source\\repos\\jupelag\\EjercicioSmc\\EjericicioFormacion\\EjericicioFormacion\\EjercicioFormacion.csproj",
+      "projectName": "EjercicioFormacion",
+      "projectPath": "C:\\Users\\Juan\\source\\repos\\jupelag\\EjercicioSmc\\EjericicioFormacion\\EjericicioFormacion\\EjercicioFormacion.csproj",
       "packagesPath": "C:\\Users\\Juan\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Juan\\source\\repos\\jupelag\\EjercicioSmc\\EjericicioFormacion\\EjericicioFormacion\\obj\\",
       "projectStyle": "PackageReference",

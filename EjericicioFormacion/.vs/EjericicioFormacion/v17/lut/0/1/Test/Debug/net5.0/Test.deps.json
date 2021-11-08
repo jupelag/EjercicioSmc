@@ -8,7 +8,7 @@
     ".NETCoreApp,Version=v5.0": {
       "Test/1.0.0": {
         "dependencies": {
-          "EjericicioFormacion": "1.0.0",
+          "EjercicioFormacion": "1.0.0",
           "FluentAssertions": "6.1.0",
           "Microsoft.NET.Test.Sdk": "16.11.0",
           "xunit": "2.4.1",
@@ -1134,9 +1134,9 @@
           "Microsoft.NET.Test.Sdk": "16.11.0"
         }
       },
-      "EjericicioFormacion/1.0.0": {
+      "EjercicioFormacion/1.0.0": {
         "runtime": {
-          "EjericicioFormacion.dll": {}
+          "EjercicioFormacion.dll": {}
         }
       },
       "Microsoft.CodeAnalysis.LiveUnitTesting.Runtime/17.0.0.0": {
@@ -1813,7 +1813,7 @@
       "path": "xunit.runner.visualstudio/2.4.1",
       "hashPath": "xunit.runner.visualstudio.2.4.1.nupkg.sha512"
     },
-    "EjericicioFormacion/1.0.0": {
+    "EjercicioFormacion/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

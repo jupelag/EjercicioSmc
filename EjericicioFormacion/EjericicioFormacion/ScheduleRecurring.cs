@@ -1,7 +1,7 @@
 ﻿using System;
-using EjericicioFormacion.Config;
+using EjercicioFormacion.Config;
 
-namespace EjericicioFormacion
+namespace EjercicioFormacion
 {
     public abstract class ScheduleRecurring : Schedule
     {
@@ -17,7 +17,7 @@ namespace EjericicioFormacion
             this.minsBetweenExecutions = InputData.MinBetweenExecutions;
             this.secsBetweenExecutions = InputData.SecBetweenExecutions;
             this.startHour = InputData.StartHour ?? new TimeSpan();
-            this.endHour = InputData.EndHour ?? TimeSpan.Parse("23:59");
+            this.endHour = InputData.EndHour ?? new TimeSpan(23,59, 00);
         }
     }
 }
