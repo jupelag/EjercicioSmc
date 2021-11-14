@@ -1,42 +1,41 @@
 ﻿using System;
 using EjercicioFormacion.Utilities;
-using EjericicioFormacion.Config;
-using EjericicioFormacion.Resources;
+using EjercicioFormacion.Config;
+using EjercicioFormacion.Resources;
 
-namespace EjericicioFormacion
+namespace EjercicioFormacion
 {
-    public class ScheduleOnceDialy : ScheduleOnce
+    public class ScheduleOnceDaily:ScheduleBase
     {
-        public ScheduleOnceDialy(ScheduleOnceData InputData) 
+        private readonly ScheduleOnceData _data;
+        public ScheduleOnceDaily(ScheduleData InputData) 
             : base(InputData)
         {
-        }        
+            this._data = InputData.OnceData;
+        }
 
-        private bool MustBeRun
+        private bool MustBeRun()
         {
-            get
-            {
-                return (base.Enabled == false ||
-                    base.CurrentDate > base.ProgrammedTime ||
-                    base.ProgrammedTime.IsInPeriod(base.StartDate, base.EndDate) == false) == false;
-            }
+            return (base.Enabled == false ||
+                _data.CurrentDate > _data.ProgrammedTime ||
+                _data.ProgrammedTime.IsInPeriod(_data.StartDate, _data.EndDate) == false) == false;
         }
         private string GetDescription(DateTime? nextExecutionTime)
         {
             if (nextExecutionTime == null) return ScheduleOnceDialyResources.NullNextExecutionTimDescripcion;
             return string.Format(ScheduleOnceDialyResources.Description,
-                nextExecutionTime.Value.ToString("dd/MM/yyyy"), nextExecutionTime.Value.ToString("HH:mm"), base.StartDate.ToString("dd/MM/yyyy HH:mm"));
+                nextExecutionTime.Value.ToString(), _data.StartDate.ToString());
         }
 
         public override DateTime? GetNextExecutionTime(out string description)
         {            
-            if (this.MustBeRun == false) 
+            if (!this.MustBeRun()) 
             {
                 description = GetDescription(null);
                 return null; 
             }
-            description = GetDescription(this.ProgrammedTime);
-            return this.ProgrammedTime;
+            description = GetDescription(_data.ProgrammedTime);
+            return _data.ProgrammedTime;
         }        
     }
 }
