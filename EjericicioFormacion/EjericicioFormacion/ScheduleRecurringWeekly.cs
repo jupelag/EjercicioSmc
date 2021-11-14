@@ -10,202 +10,198 @@ using EjercicioFormacion.Resources;
 
 namespace EjercicioFormacion
 {
-    public class ScheduleRecurringWeekly : ScheduleRecurring
+    public class ScheduleRecurringWeekly : ScheduleBase
     {
-        private readonly int weeksBetweenExecutions;
-        private readonly DaysOfTheWeek executionDays;
-        private DateTime startTime;
+        private readonly ScheduleRecurringWeeklyData data;         
         private DateTime? nextExecutionTime;
+        private ScheduleRecurringWeeklyData data1;
+        private readonly DateTime startTime;
 
-        public ScheduleRecurringWeekly(ScheduleRecurringWeeklyData InputData)
-            : base(InputData)
-        {            
-            this.weeksBetweenExecutions = InputData.WeeksBetweenExecutions;
-            this.executionDays = InputData.ExecutionDays;
+        public ScheduleRecurringWeekly(ScheduleData inputData)
+            : base(inputData)
+        {
+            if(inputData == null) throw new ArgumentNullException(nameof(inputData));
+            if (inputData.RecurringWeeklyData == null) throw new ArgumentNullException(nameof(inputData.RecurringWeeklyData));
+            this.data = inputData.RecurringWeeklyData;
+            if (this.data.WeeksBetweenExecutions < 0) throw new FormatException("Weeks between executions must be bigger than 0");
+            if (this.data.HoursBetweenExecutions < 0) throw new FormatException("Hours between executions must be bigger than 0");
+            if (this.data.MinsBetweenExecutions < 0) throw new FormatException("Minutes between executions must be bigger than 0");
+            if (this.data.SecsBetweenExecutions < 0) throw new FormatException("Seconds between executions must be bigger than 0");
             try
             {
-                this.CalculateStartTime();
+                this.startTime = CalculateStartTime(this.data);
             }
             catch(ArgumentOutOfRangeException)
             {
                 throw new ArgumentOutOfRangeException("has exceeded the maximum allowed date value.");
             }
         }
-        private string executionDaysStr
+
+        public ScheduleRecurringWeekly(ScheduleData inputData, ScheduleRecurringWeeklyData data1) : this(inputData)
         {
-            get
-            {
-                return string.Join(", ", Enum.GetValues(typeof(DayOfWeek))
-                                            .OfType<DayOfWeek>()
-                                            .Where(D => IsInWeekDays(D))
-                                            .Select(D => D.ToString()));
-            }
+            this.data1 = data1;
         }
-        private string NumberBetweenExecutions
+
+        private static string GetexecutionDays(ScheduleRecurringWeeklyData inputData)
         {
-            get 
-            {
-                if (this.hoursBetweenExecutions > 0)
+            return string.Join(", ", Enum.GetValues(typeof(DayOfWeek))
+                                        .OfType<DayOfWeek>()
+                                        .Where(D => IsInWeekDays(D, inputData))
+                                        .Select(D => D.ToString()));
+        }
+        private static string GetNumberBetweenExecutions(ScheduleRecurringWeeklyData inputData)
+        {
+                if (inputData.HoursBetweenExecutions > 0)
                 {
-                    return this.hoursBetweenExecutions + " " + ScheduleRecurringWeeklyResources.Hours;
+                    return inputData.HoursBetweenExecutions + " " + ScheduleRecurringWeeklyResources.Hours;
                 }
-                else if (this.minsBetweenExecutions > 0)
+                else if (inputData.MinsBetweenExecutions > 0)
                 {
-                    return this.minsBetweenExecutions + " " + ScheduleRecurringWeeklyResources.Minutes;
+                    return inputData.MinsBetweenExecutions + " " + ScheduleRecurringWeeklyResources.Minutes;
                 }
-                else if (this.secsBetweenExecutions > 0)
+                else if (inputData.SecsBetweenExecutions > 0)
                 {
-                    return this.secsBetweenExecutions + " " + ScheduleRecurringWeeklyResources.Seconds;
+                    return inputData.SecsBetweenExecutions + " " + ScheduleRecurringWeeklyResources.Seconds;
                 }
                 else
                 {
                     throw new ApplicationException("There must be a stipulated period between executions greater than or equal to zero");
-                }
-            }
+                }            
         }
-        private void CalculateStartTime()
+        private static DateTime CalculateStartTime(ScheduleRecurringWeeklyData inputData)
         {
-            bool isInPeriod = base.CurrentDate.IsInPeriod(base.StartDate, base.EndDate);
-            bool isInHour = base.CurrentDate.TimeOfDay.IsInTime(this.startHour, this.endHour);
-            if (base.CurrentDate <= base.StartDate)
+            bool isInPeriod = inputData.CurrentDate.IsInPeriod(inputData.StartDate, inputData.EndDate);
+            bool isInHour = inputData.CurrentDate.TimeOfDay.IsInTime(inputData.StartHour, inputData.EndHour);
+            DateTime startTime = DateTime.MinValue;
+            if (inputData.CurrentDate <= inputData.StartDate)
             {
-                this.startTime = base.StartDate.AddTicks(this.startHour.Ticks);
+                startTime = inputData.StartDate.AddTicks(inputData.StartHour.Value.Ticks);
             }
-            else if (isInPeriod && isInHour)
+            if (isInPeriod && isInHour)
             {
-                this.startTime = this.CurrentDate;
+                startTime = inputData.CurrentDate;
             }
-            else if (isInPeriod && isInHour == false && base.CurrentDate > base.StartDate && base.CurrentDate.TimeOfDay < this.startHour)
+            if (isInPeriod && isInHour == false && inputData.CurrentDate > inputData.StartDate && inputData.CurrentDate.TimeOfDay < inputData.StartHour)
             {
-                this.startTime = new DateTime(base.CurrentDate.Year, base.CurrentDate.Month, base.CurrentDate.Day).AddTicks(this.startHour.Ticks);
+                startTime = new DateTime(inputData.CurrentDate.Year, inputData.CurrentDate.Month, inputData.CurrentDate.Day).AddTicks(inputData.StartHour.Value.Ticks);
             }
-            else if (base.CurrentDate.DayOfYear.Equals(base.StartDate.DayOfYear) && base.CurrentDate.TimeOfDay > this.endHour)
+            if (inputData.CurrentDate.DayOfYear.Equals(inputData.StartDate.DayOfYear) && inputData.CurrentDate.TimeOfDay > inputData.EndHour)
             {
-                this.startTime = this.AddTime(this.CurrentDate);
+                startTime = AddTime(inputData.CurrentDate,inputData,null);
             }
-            if (this.IsInWeekDays(this.startTime.DayOfWeek) == false)
+            if (IsInWeekDays(startTime.DayOfWeek,inputData) == false)
             {
-                this.startTime = this.GetNextDayInWeekDays(this.startTime);
-            }            
+                startTime = GetNextDayInWeekDays(startTime, inputData);
+            }
+            return startTime;
         }
-        private bool IsInTime(DateTime time)
+        private static bool IsInTime(DateTime time, ScheduleRecurringWeeklyData inputData)
         {
-            return time.IsInPeriod(base.StartDate, base.EndDate) && time.TimeOfDay.IsInTime(this.startHour, this.endHour);
+            return time.IsInPeriod(inputData.StartDate, inputData.EndDate) && time.TimeOfDay.IsInTime(inputData.StartHour, inputData.EndHour);
         }
-        private bool IsInWeekDays(DayOfWeek day)
+        private static bool IsInWeekDays(DayOfWeek day, ScheduleRecurringWeeklyData inputData)
         {
-            var dayOfTheWeek = this.GetDayOfTheWeek(day);
-            return (this.executionDays & dayOfTheWeek) == dayOfTheWeek;
+            var dayOfTheWeek = GetDayOfTheWeek(day);
+            return (inputData.ExecutionDays & dayOfTheWeek) == dayOfTheWeek;
         }
-        private DateTime GetNextDayInWeekDays(DateTime date)
+        private static DateTime GetNextDayInWeekDays(DateTime date, ScheduleRecurringWeeklyData inputData)
         {
             DateTime nextDay = date.AddDays(1);
-            while (IsInWeekDays(nextDay.DayOfWeek) == false)
+            while (IsInWeekDays(nextDay.DayOfWeek, inputData) == false)
             {
                 nextDay = nextDay.AddDays(1);
             }
             return nextDay;
         }
-        private DaysOfTheWeek GetDayOfTheWeek(DayOfWeek day)
+        private static DaysOfTheWeek GetDayOfTheWeek(DayOfWeek day)
         {
             return Enum.GetValues(typeof(DaysOfTheWeek))
                 .OfType<DaysOfTheWeek>()
                 .FirstOrDefault(D => D.ToString().Equals(day.ToString()));
         }
-        private void CalculateNextExecutionTime()
+        private static DateTime? CalculateNextExecutionTime(DateTime startTime, DateTime? nextExecutionTime, ScheduleRecurringWeeklyData inputData)
         {
-            if (this.nextExecutionTime == null)
-            {
-                this.nextExecutionTime = this.startTime;
-            }
-            else
-            {
-                this.nextExecutionTime = this.AddTime(this.nextExecutionTime.Value);
-            }
+            return nextExecutionTime == null ? startTime : AddTime(nextExecutionTime.Value, inputData, nextExecutionTime.Value);
         }
-        private int GetWeekInYear(DateTime date)
+        private static int GetWeekInYear(DateTime date)
         {            
             return CultureInfo.CurrentUICulture.Calendar.GetWeekOfYear(date, CalendarWeekRule.FirstFourDayWeek, date.DayOfWeek);
         }
-        private bool IsSameWeek(DateTime date1, DateTime date2)
+        private static bool IsSameWeek(DateTime date1, DateTime date2)
         {
-            return this.GetWeekInYear(date1) == this.GetWeekInYear(date2);
+            return GetWeekInYear(date1) == GetWeekInYear(date2);
         }
-        private DateTime GetFirstDayNextExecutionWeek(DateTime date)
+        private static DateTime GetFirstDayNextExecutionWeek(DateTime date, ScheduleRecurringWeeklyData inputData)
         {            
-            int currentWeek = this.GetWeekInYear(date);
-            int nextWeek = currentWeek + this.weeksBetweenExecutions;
+            int currentWeek = GetWeekInYear(date);
+            int nextWeek = currentWeek + inputData.WeeksBetweenExecutions;
             var currentDay = date;
             while (currentWeek != nextWeek)
             {
                 currentDay = currentDay.AddDays(1);
-                currentWeek = this.GetWeekInYear(currentDay);
+                currentWeek = GetWeekInYear(currentDay);
             }
             return currentDay;
         }
-        private DateTime AddTime(DateTime date)
+        private static DateTime AddTime(DateTime date, ScheduleRecurringWeeklyData inputData, DateTime? nextExecutionTime)
         {
-            var newDate = date.AddSeconds(this.secsBetweenExecutions)
-                .AddMinutes(this.minsBetweenExecutions)
-                .AddHours(this.hoursBetweenExecutions);
-            if (newDate.TimeOfDay.IsInTime(this.startHour, this.endHour) == false)
+            var newDate = date.AddSeconds(inputData.SecsBetweenExecutions)
+                .AddMinutes(inputData.MinsBetweenExecutions)
+                .AddHours(inputData.HoursBetweenExecutions);
+            if (newDate.TimeOfDay.IsInTime(inputData.StartHour, inputData.EndHour) == false)
             {                
-                newDate = this.GetNextDayInWeekDays(newDate);
-                if (this.IsSameWeek(date, newDate) == false)
+                newDate = GetNextDayInWeekDays(newDate,inputData);
+                if (IsSameWeek(date, newDate) == false)
                 {
-                    newDate = this.GetFirstDayNextExecutionWeek(date);
+                    newDate = GetFirstDayNextExecutionWeek(date,inputData);
                 }
-                if (this.IsInWeekDays(newDate.DayOfWeek) == false)
+                if (IsInWeekDays(newDate.DayOfWeek,inputData) == false)
                 {
-                    newDate = this.GetNextDayInWeekDays(newDate);
+                    newDate = GetNextDayInWeekDays(newDate,inputData);
                 }
                 newDate = new DateTime(newDate.Year, newDate.Month, newDate.Day);
-                newDate = newDate.AddTicks(this.startHour.Ticks);
+                newDate = newDate.AddTicks(inputData.StartHour.Value.Ticks);
             }
             return newDate;
         }
 
-        private string GetDescription(DateTime? nextExecutionTime)
+        private static string GetDescription(DateTime? nextExecutionTime, ScheduleRecurringWeeklyData inputData)
         {
             if (nextExecutionTime != null)
             {
 
                 return string.Format(ScheduleRecurringWeeklyResources.Description,
-                    this.weeksBetweenExecutions > 1 ? this.weeksBetweenExecutions + " " + ScheduleRecurringWeeklyResources.Weeks :
+                    inputData.WeeksBetweenExecutions > 1 ? inputData.WeeksBetweenExecutions + " " + ScheduleRecurringWeeklyResources.Weeks :
                         ScheduleRecurringWeeklyResources.Week,
-                    this.executionDaysStr,
-                    this.NumberBetweenExecutions,
-                    this.startHour,
-                    this.endHour,
-                    base.StartDate.ToString());
+                    GetexecutionDays(inputData),
+                    GetNumberBetweenExecutions(inputData),
+                    inputData.StartHour,
+                    inputData.EndHour,
+                    inputData.StartDate.ToString());
             }
             return "Occurs Recurring Weekly. Schedule will not be used";
         }
 
         public override DateTime? GetNextExecutionTime(out string description)
         {
-            if (this.weeksBetweenExecutions < 0) throw new FormatException("Weeks between executions must be bigger than 0");
-            if (this.hoursBetweenExecutions < 0) throw new FormatException("Hours between executions must be bigger than 0");
-            if (this.minsBetweenExecutions < 0) throw new FormatException("Minutes between executions must be bigger than 0");
-            if (this.secsBetweenExecutions < 0) throw new FormatException("Seconds between executions must be bigger than 0");
             if (this.Enabled == false)
             {
-                description = this.GetDescription(null);
+                description = GetDescription(null,this.data);
                 return null;
             }
             try
             {
-                this.CalculateNextExecutionTime();
+                this.nextExecutionTime = CalculateNextExecutionTime(this.startTime,this.nextExecutionTime,this.data);
             } catch (ArgumentOutOfRangeException)
             {
                 throw new ArgumentOutOfRangeException("has exceeded the maximum allowed date value.");
             }
-            if (this.IsInTime(this.nextExecutionTime.Value))
+            if (IsInTime(this.nextExecutionTime.Value,this.data))
             {
-                description = this.GetDescription(this.nextExecutionTime);
+                description = GetDescription(this.nextExecutionTime,this.data);
                 return this.nextExecutionTime;
             }
-            description = this.GetDescription(null);
+            description = GetDescription(null,this.data);
             return null;
         }
     }

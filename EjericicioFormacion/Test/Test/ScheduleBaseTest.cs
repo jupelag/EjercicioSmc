@@ -9,10 +9,10 @@ using EjercicioFormacion;
 
 namespace Test.Test
 {
-    public class ScheduleTest
+    public class ScheduleBaseTest
     {
         [Fact]
-        public void ScheduleRecurringWeekly_Null_Data_Return_Correct_Exception()
+        public void ScheduleBase_Null_Data_Return_Correct_Exception()
         {
             FluentActions.Invoking(() => new ScheduleRecurringWeekly(null)).Should().ThrowExactly<ArgumentNullException>();
         }

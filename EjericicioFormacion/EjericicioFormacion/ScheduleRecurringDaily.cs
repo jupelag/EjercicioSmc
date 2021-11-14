@@ -6,118 +6,115 @@ using EjercicioFormacion.Resources;
 
 namespace EjercicioFormacion
 {
-    public class ScheduleRecurringDaily : ScheduleRecurring
+    public class ScheduleRecurringDaily : ScheduleBase
     {
-        private readonly int daysBetweenExecutions;      
-        private DateTime startTime;
+        private readonly ScheduleRecurringDailyData data;
+        private readonly DateTime startTime;
         private DateTime? nextExecutionTime;
         
-        public ScheduleRecurringDaily(ScheduleRecurringDailyData InputData) 
-            : base(InputData)
+        public ScheduleRecurringDaily(ScheduleData inputData) 
+            : base(inputData)
         {
-            this.daysBetweenExecutions = InputData.DaysBetweenExecutions;
+            if(inputData == null) throw new ArgumentNullException(nameof(inputData));
+            if (inputData.RecurringDailyData == null) throw new ArgumentNullException(nameof(inputData.RecurringDailyData));            
+            this.data = inputData.RecurringDailyData;
+            if (this.data.DaysBetweenExecutions < 0) throw new FormatException("Days between executions must be bigger than 0");
+            if (this.data.HoursBetweenExecutions < 0) throw new FormatException("Hours between executions must be bigger than 0");
+            if (this.data.MinsBetweenExecutions < 0) throw new FormatException("Minutes between executions must be bigger than 0");
+            if (this.data.SecsBetweenExecutions < 0) throw new FormatException("Seconds between executions must be bigger than 0");
             try
             {
-                this.CalculateStartTime();
+                this.startTime = CalculateStartTime(inputData.RecurringDailyData);
             }
             catch (ArgumentOutOfRangeException)
             {
                 throw new ArgumentOutOfRangeException("has exceeded the maximum allowed date value.");
             }
         }
-        private void CalculateStartTime()
+        private static DateTime CalculateStartTime(ScheduleRecurringDailyData inputData)
         {
-            bool isInPeriod = base.CurrentDate.IsInPeriod(base.StartDate, base.EndDate);
-            bool isInHour = base.CurrentDate.TimeOfDay.IsInTime(this.startHour, this.endHour);
-            if (base.CurrentDate <= base.StartDate)
-            {
-                this.startTime = base.StartDate.AddTicks(this.startHour.Ticks);
+            bool isInPeriod = inputData.CurrentDate.IsInPeriod(inputData.StartDate, inputData.EndDate);
+            bool isInHour = inputData.CurrentDate.TimeOfDay.IsInTime(inputData.StartHour, inputData.EndHour);
 
-            }
-            else if (isInPeriod && isInHour)
+            if (inputData.CurrentDate <= inputData.StartDate)
             {
-                this.startTime = this.CurrentDate;
+                return inputData.StartDate.AddTicks(inputData.StartHour.Value.Ticks);
             }
-            else if (isInPeriod && isInHour == false && base.CurrentDate > base.StartDate && base.CurrentDate.TimeOfDay < this.startHour)
+            if (isInPeriod && isInHour)
             {
-                this.startTime = new DateTime(base.CurrentDate.Year, base.CurrentDate.Month, base.CurrentDate.Day).AddTicks(this.startHour.Ticks);
+                return inputData.CurrentDate;
             }
-            else if (isInPeriod && isInHour == false && base.CurrentDate > base.StartDate && base.CurrentDate.TimeOfDay > this.startHour)
+            if (isInPeriod && isInHour == false && inputData.CurrentDate > inputData.StartDate && inputData.CurrentDate.TimeOfDay < inputData.StartHour)
             {
-                this.startTime = this.AddTime(this.CurrentDate);
-            }           
+                return new DateTime(inputData.CurrentDate.Year, inputData.CurrentDate.Month, inputData.CurrentDate.Day).AddTicks(inputData.StartHour.Value.Ticks);
+            }
+            if (isInPeriod && isInHour == false && inputData.CurrentDate > inputData.StartDate && inputData.CurrentDate.TimeOfDay > inputData.StartHour)
+            {
+                return AddTime(inputData.CurrentDate,inputData,null);
+            }
+            return DateTime.MinValue;
         }
-        private bool IsInTime(DateTime time)
+        private static bool IsInTime(DateTime time, ScheduleRecurringDailyData inputData)
         {
-            return time.IsInPeriod(base.StartDate, base.EndDate) && time.TimeOfDay.IsInTime(this.startHour, this.endHour);
+            return time.IsInPeriod(inputData.StartDate, inputData.EndDate) && time.TimeOfDay.IsInTime(inputData.StartHour, inputData.EndHour);
         }
-        private void CalculateNextExecutionTime()
+        private static DateTime? CalculateNextExecutionTime(DateTime startTime, DateTime? nextExecutionTime, ScheduleRecurringDailyData inputData)
         {
-            if (this.nextExecutionTime == null)
-            {
-                this.nextExecutionTime = this.startTime;
-            }
-            else
-            {
-                this.nextExecutionTime = this.AddTime(this.nextExecutionTime.Value);
-            }            
+            return nextExecutionTime == null ? startTime : AddTime(nextExecutionTime.Value, inputData, nextExecutionTime.Value);
         }
 
-        private DateTime AddTime(DateTime date)
+        private static DateTime AddTime(DateTime date, ScheduleRecurringDailyData inputData, DateTime? nextExecutionTime)
         {
-            var newDate = date.AddSeconds(this.secsBetweenExecutions)
-                .AddMinutes(this.minsBetweenExecutions)
-                .AddHours(this.hoursBetweenExecutions);
-            if (newDate.TimeOfDay.IsInTime(this.startHour, this.endHour) == false)
+            var newDate = date.AddSeconds(inputData.SecsBetweenExecutions)
+                .AddMinutes(inputData.MinsBetweenExecutions)
+                .AddHours(inputData.HoursBetweenExecutions);
+            if (newDate.TimeOfDay.IsInTime(inputData.StartHour, inputData.EndHour) == false)
             {
-                newDate = newDate.AddDays(this.nextExecutionTime == null ? 1 : this.daysBetweenExecutions);
+                newDate = newDate.AddDays(nextExecutionTime == null ? 1 : inputData.DaysBetweenExecutions);
                 newDate = new DateTime(newDate.Year, newDate.Month, newDate.Day);
-                newDate = newDate.AddTicks(this.startHour.Ticks);
+                newDate = newDate.AddTicks(inputData.StartHour.Value.Ticks);
             }
             return newDate;
         }
         
-        private string GetDescription(DateTime? nextExecutionTime)
+        private static string GetDescription(DateTime? nextExecutionTime,ScheduleRecurringDailyData inputData)
         {            
             if (nextExecutionTime != null)
             {
                 return string.Format(ScheduleRecurringDialyResources.Description,
-                    this.daysBetweenExecutions > 1 ?
-                        this.daysBetweenExecutions + " " + ScheduleRecurringDialyResources.Days : 
+                    inputData.DaysBetweenExecutions > 1 ?
+                        inputData.DaysBetweenExecutions + " " + ScheduleRecurringDialyResources.Days : 
                         ScheduleRecurringDialyResources.Day,
-                    this.startHour,
-                    this.endHour,
-                    nextExecutionTime.Value.ToString(),                    
-                    base.StartDate.ToString());
+                    inputData.StartHour,
+                    inputData.EndHour,
+                    nextExecutionTime.Value.ToString(),
+                    inputData.StartDate.ToString());
             }
             return "Occurs Recurring Dialy. Schedule will not be used";
         }
 
         public override DateTime? GetNextExecutionTime(out string description)
         {            
-            if (this.daysBetweenExecutions < 0) throw new FormatException("Days between executions must be bigger than 0");
-            if (this.hoursBetweenExecutions < 0) throw new FormatException("Hours between executions must be bigger than 0");
-            if (this.minsBetweenExecutions < 0) throw new FormatException("Minutes between executions must be bigger than 0");
-            if (this.secsBetweenExecutions < 0) throw new FormatException("Seconds between executions must be bigger than 0");
+
             if (this.Enabled == false)
             {
-                description = this.GetDescription(null);
+                description = GetDescription(null,this.data);
                 return null; 
             }
             try
             {
-                this.CalculateNextExecutionTime();
+                this.nextExecutionTime = CalculateNextExecutionTime(this.startTime, this.nextExecutionTime, this.data);
             }
             catch (ArgumentOutOfRangeException)
             {
                 throw new ArgumentOutOfRangeException("has exceeded the maximum allowed date value.");
             }
-            if (this.IsInTime(this.nextExecutionTime.Value))
+            if (IsInTime(this.nextExecutionTime.Value,this.data))
             {
-                description = this.GetDescription(this.nextExecutionTime);
+                description = GetDescription(this.nextExecutionTime,this.data);
                 return this.nextExecutionTime;
             }
-            description = this.GetDescription(null);
+            description = GetDescription(null,this.data);
             return null;
         }
     }

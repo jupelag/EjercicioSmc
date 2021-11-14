@@ -5,24 +5,26 @@ using EjercicioFormacion.Resources;
 
 namespace EjercicioFormacion
 {
-    public class ScheduleOnceDaily : ScheduleOnce
+    public class ScheduleOnceDaily:ScheduleBase
     {
-        public ScheduleOnceDaily(ScheduleOnceData InputData) 
+        private readonly ScheduleOnceData _data;
+        public ScheduleOnceDaily(ScheduleData InputData) 
             : base(InputData)
         {
+            this._data = InputData.OnceData;
         }
 
         private bool MustBeRun()
         {
             return (base.Enabled == false ||
-                base.CurrentDate > base.ProgrammedTime ||
-                base.ProgrammedTime.IsInPeriod(base.StartDate, base.EndDate) == false) == false;
+                _data.CurrentDate > _data.ProgrammedTime ||
+                _data.ProgrammedTime.IsInPeriod(_data.StartDate, _data.EndDate) == false) == false;
         }
         private string GetDescription(DateTime? nextExecutionTime)
         {
             if (nextExecutionTime == null) return ScheduleOnceDialyResources.NullNextExecutionTimDescripcion;
             return string.Format(ScheduleOnceDialyResources.Description,
-                nextExecutionTime.Value.ToString(), base.StartDate.ToString());
+                nextExecutionTime.Value.ToString(), _data.StartDate.ToString());
         }
 
         public override DateTime? GetNextExecutionTime(out string description)
@@ -32,8 +34,8 @@ namespace EjercicioFormacion
                 description = GetDescription(null);
                 return null; 
             }
-            description = GetDescription(this.ProgrammedTime);
-            return this.ProgrammedTime;
+            description = GetDescription(_data.ProgrammedTime);
+            return _data.ProgrammedTime;
         }        
     }
 }
