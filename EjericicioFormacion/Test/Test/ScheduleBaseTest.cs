@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 using FluentAssertions;
-using EjericicioFormacion;
+using EjercicioFormacion;
 
 namespace Test.Test
 {

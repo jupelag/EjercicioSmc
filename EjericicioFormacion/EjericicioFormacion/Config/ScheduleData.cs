@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EjericicioFormacion.Enumerations;
+using EjercicioFormacion.Enumerations;
 
-namespace EjericicioFormacion.Config
+namespace EjercicioFormacion.Config
 {
     public class ScheduleData
     {
@@ -56,9 +52,9 @@ namespace EjericicioFormacion.Config
         public TimeSpan? StartHour { get; set; } = TimeSpan.Zero;
         public TimeSpan? EndHour { get; set; } = TimeSpan.Zero;
     }
-    public class ScheduleRecurringDialyData : ScheduleRecurringData
+    public class ScheduleRecurringDailyData : ScheduleRecurringData
     {
-        public ScheduleRecurringDialyData(DateTime CurrentDate, DateTime StartDate) 
+        public ScheduleRecurringDailyData(DateTime CurrentDate, DateTime StartDate) 
             : base(CurrentDate, StartDate)
         {
         }

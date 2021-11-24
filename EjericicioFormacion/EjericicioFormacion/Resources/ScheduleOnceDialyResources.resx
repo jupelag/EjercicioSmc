@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Description" xml:space="preserve">
-    <value>Ocurrs once. Schedule will be used on {0} at {1} starting on {2}</value>
+    <value>Ocurrs once. Schedule will be used on {0} starting on {1}</value>
   </data>
   <data name="NullNextExecutionTimDescripcion" xml:space="preserve">
     <value>Occurs once. Schedule will not be used</value>
