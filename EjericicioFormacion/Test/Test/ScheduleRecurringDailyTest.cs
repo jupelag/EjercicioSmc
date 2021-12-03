@@ -97,7 +97,7 @@ namespace Test.Test
         [Fact]
         public void ScheduleRecurringDaily_Hours_Serie_Return_Correct_Dates()
         {
-            var data = new ScheduleRecurringDailyData(new DateTime(2020, 01, 01), new DateTime(2020, 01, 01))
+            var data = new ScheduleRecurringDailyData(new DateTime(2020, 01, 01,04,00,00), new DateTime(2020, 01, 01))
             {
                 EndDate = new DateTime(2020,01,04),
                 DaysBetweenExecutions = 2,
@@ -105,8 +105,7 @@ namespace Test.Test
                 StartHour = new TimeSpan(04,00,00),
                 EndHour = new TimeSpan(08,00,00)
             };
-            var schedule = new ScheduleRecurringDaily(new ScheduleData(data));
-            schedule.GetNextExecutionTime(out _).Should().Be(new DateTime(2020, 01, 01, 04, 00, 00));
+            var schedule = new ScheduleRecurringDaily(new ScheduleData(data));            
             schedule.GetNextExecutionTime(out _).Should().Be(new DateTime(2020, 01, 01, 06, 00, 00));
             schedule.GetNextExecutionTime(out _).Should().Be(new DateTime(2020, 01, 01, 08, 00, 00));
             schedule.GetNextExecutionTime(out _).Should().Be(new DateTime(2020, 01, 03, 04, 00, 00));

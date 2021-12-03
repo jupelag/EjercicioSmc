@@ -13,8 +13,7 @@ namespace EjercicioFormacion
     public class ScheduleRecurringWeekly : ScheduleBase
     {
         private readonly ScheduleRecurringWeeklyData data;         
-        private DateTime? nextExecutionTime;
-        private ScheduleRecurringWeeklyData data1;
+        private DateTime? nextExecutionTime;        
         private readonly DateTime startTime;
 
         public ScheduleRecurringWeekly(ScheduleData inputData)
@@ -35,11 +34,6 @@ namespace EjercicioFormacion
             {
                 throw new ArgumentOutOfRangeException("has exceeded the maximum allowed date value.");
             }
-        }
-
-        public ScheduleRecurringWeekly(ScheduleData inputData, ScheduleRecurringWeeklyData data1) : this(inputData)
-        {
-            this.data1 = data1;
         }
 
         private static string GetexecutionDays(ScheduleRecurringWeeklyData inputData)
@@ -79,7 +73,7 @@ namespace EjercicioFormacion
             }
             if (isInPeriod && isInHour)
             {
-                startTime = inputData.CurrentDate;
+                startTime = AddTime(inputData.CurrentDate, inputData);                 
             }
             if (isInPeriod && isInHour == false && inputData.CurrentDate > inputData.StartDate && inputData.CurrentDate.TimeOfDay < inputData.StartHour)
             {
@@ -87,7 +81,7 @@ namespace EjercicioFormacion
             }
             if (inputData.CurrentDate.DayOfYear.Equals(inputData.StartDate.DayOfYear) && inputData.CurrentDate.TimeOfDay > inputData.EndHour)
             {
-                startTime = AddTime(inputData.CurrentDate,inputData,null);
+                startTime = AddTime(inputData.CurrentDate,inputData);
             }
             if (IsInWeekDays(startTime.DayOfWeek,inputData) == false)
             {
@@ -121,7 +115,7 @@ namespace EjercicioFormacion
         }
         private static DateTime? CalculateNextExecutionTime(DateTime startTime, DateTime? nextExecutionTime, ScheduleRecurringWeeklyData inputData)
         {
-            return nextExecutionTime == null ? startTime : AddTime(nextExecutionTime.Value, inputData, nextExecutionTime.Value);
+            return nextExecutionTime == null ? startTime : AddTime(nextExecutionTime.Value, inputData);
         }
         private static int GetWeekInYear(DateTime date)
         {            
@@ -143,7 +137,7 @@ namespace EjercicioFormacion
             }
             return currentDay;
         }
-        private static DateTime AddTime(DateTime date, ScheduleRecurringWeeklyData inputData, DateTime? nextExecutionTime)
+        private static DateTime AddTime(DateTime date, ScheduleRecurringWeeklyData inputData)
         {
             var newDate = date.AddSeconds(inputData.SecsBetweenExecutions)
                 .AddMinutes(inputData.MinsBetweenExecutions)

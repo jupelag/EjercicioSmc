@@ -42,7 +42,7 @@ namespace EjercicioFormacion
             }
             if (isInPeriod && isInHour)
             {
-                return inputData.CurrentDate;
+                return AddTime(inputData.CurrentDate, inputData, null);
             }
             if (isInPeriod && isInHour == false && inputData.CurrentDate > inputData.StartDate && inputData.CurrentDate.TimeOfDay < inputData.StartHour)
             {
