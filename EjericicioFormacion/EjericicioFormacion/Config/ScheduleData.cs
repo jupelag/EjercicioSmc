@@ -16,10 +16,15 @@ namespace EjercicioFormacion.Config
         public ScheduleData(ScheduleRecurringWeeklyData recurringWeeklyData)
         {         
             this.RecurringWeeklyData = recurringWeeklyData;
-        }        
+        }
+        public ScheduleData(ScheduleRecurringMonthlyData recurringWeeklyData)
+        {
+            this.RecurringMonthlyData = recurringWeeklyData;
+        }
         public ScheduleOnceData OnceData { get; private set; }
         public ScheduleRecurringDailyData RecurringDailyData { get; private set; }
         public ScheduleRecurringWeeklyData RecurringWeeklyData { get; private set; }
+        public ScheduleRecurringMonthlyData RecurringMonthlyData { get; private set; }
     }
     public abstract class ScheduleCommonData
     {
@@ -71,5 +76,15 @@ namespace EjercicioFormacion.Config
 
         public int WeeksBetweenExecutions { get; set; }
         public DaysOfTheWeek ExecutionDays { get; set; }
+    }
+    public class ScheduleRecurringMonthlyData : ScheduleRecurringData
+    {
+        public ScheduleRecurringMonthlyData(DateTime CurrentDate, DateTime StartDate) 
+            : base(CurrentDate, StartDate)
+        {
+        }
+        public int MonthsBetweenExecutions { get; set; }
+        public Ordinals OrdinalDay { get; set; }
+        public MonthlyExecutionDays ExecutionDays { get; set; }
     }
 }

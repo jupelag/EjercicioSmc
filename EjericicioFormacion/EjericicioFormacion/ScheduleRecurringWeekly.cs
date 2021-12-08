@@ -6,15 +6,12 @@ using EjercicioFormacion.Config;
 using EjercicioFormacion.Enumerations;
 using EjercicioFormacion.Resources;
 
-
-
 namespace EjercicioFormacion
 {
     public class ScheduleRecurringWeekly : ScheduleBase
     {
-        private readonly ScheduleRecurringWeeklyData data;         
-        private DateTime? nextExecutionTime;        
-        private readonly DateTime startTime;
+        private readonly ScheduleRecurringWeeklyData data;
+        private DateTime? lastExecutionTime;
 
         public ScheduleRecurringWeekly(ScheduleData inputData)
             : base(inputData)
@@ -26,14 +23,6 @@ namespace EjercicioFormacion
             if (this.data.HoursBetweenExecutions < 0) throw new FormatException("Hours between executions must be bigger than 0");
             if (this.data.MinsBetweenExecutions < 0) throw new FormatException("Minutes between executions must be bigger than 0");
             if (this.data.SecsBetweenExecutions < 0) throw new FormatException("Seconds between executions must be bigger than 0");
-            try
-            {
-                this.startTime = CalculateStartTime(this.data);
-            }
-            catch(ArgumentOutOfRangeException)
-            {
-                throw new ArgumentOutOfRangeException("has exceeded the maximum allowed date value.");
-            }
         }
 
         private static string GetexecutionDays(ScheduleRecurringWeeklyData inputData)
@@ -62,32 +51,34 @@ namespace EjercicioFormacion
                     throw new ApplicationException("There must be a stipulated period between executions greater than or equal to zero");
                 }            
         }
-        private static DateTime CalculateStartTime(ScheduleRecurringWeeklyData inputData)
+        private static DateTime CalculateNextExecutionTime(DateTime? lastExecutionTime, ScheduleRecurringWeeklyData inputData)
         {
-            bool isInPeriod = inputData.CurrentDate.IsInPeriod(inputData.StartDate, inputData.EndDate);
-            bool isInHour = inputData.CurrentDate.TimeOfDay.IsInTime(inputData.StartHour, inputData.EndHour);
-            DateTime startTime = DateTime.MinValue;
-            if (inputData.CurrentDate <= inputData.StartDate)
+            var currentDate = lastExecutionTime ?? inputData.CurrentDate;
+            bool isInPeriod = currentDate.IsInPeriod(inputData.StartDate, inputData.EndDate);
+            bool isInHour = currentDate.TimeOfDay.IsInTime(inputData.StartHour, inputData.EndHour);
+            
+            DateTime nextExecutionTime = DateTime.MinValue;
+            if (currentDate <= inputData.StartDate)
             {
-                startTime = inputData.StartDate.AddTicks(inputData.StartHour.Value.Ticks);
+                nextExecutionTime = inputData.StartDate.AddTicks(inputData.StartHour.Value.Ticks);
             }
             if (isInPeriod && isInHour)
             {
-                startTime = AddTime(inputData.CurrentDate, inputData);                 
+                nextExecutionTime = AddTime(currentDate, inputData);                 
             }
-            if (isInPeriod && isInHour == false && inputData.CurrentDate > inputData.StartDate && inputData.CurrentDate.TimeOfDay < inputData.StartHour)
+            if (isInPeriod && isInHour == false && currentDate > inputData.StartDate && currentDate.TimeOfDay < inputData.StartHour)
             {
-                startTime = new DateTime(inputData.CurrentDate.Year, inputData.CurrentDate.Month, inputData.CurrentDate.Day).AddTicks(inputData.StartHour.Value.Ticks);
+                nextExecutionTime = new DateTime(currentDate.Year, currentDate.Month, currentDate.Day).AddTicks(inputData.StartHour.Value.Ticks);
             }
-            if (inputData.CurrentDate.DayOfYear.Equals(inputData.StartDate.DayOfYear) && inputData.CurrentDate.TimeOfDay > inputData.EndHour)
+            if (currentDate.DayOfYear.Equals(inputData.StartDate.DayOfYear) && currentDate.TimeOfDay > inputData.EndHour)
             {
-                startTime = AddTime(inputData.CurrentDate,inputData);
+                nextExecutionTime = AddTime(currentDate,inputData);
             }
-            if (IsInWeekDays(startTime.DayOfWeek,inputData) == false)
+            if (IsInWeekDays(nextExecutionTime.DayOfWeek,inputData) == false)
             {
-                startTime = GetNextDayInWeekDays(startTime, inputData);
+                nextExecutionTime = GetNextDayInWeekDays(nextExecutionTime, inputData);
             }
-            return startTime;
+            return nextExecutionTime;
         }
         private static bool IsInTime(DateTime time, ScheduleRecurringWeeklyData inputData)
         {
@@ -112,10 +103,6 @@ namespace EjercicioFormacion
             return Enum.GetValues(typeof(DaysOfTheWeek))
                 .OfType<DaysOfTheWeek>()
                 .FirstOrDefault(D => D.ToString().Equals(day.ToString()));
-        }
-        private static DateTime? CalculateNextExecutionTime(DateTime startTime, DateTime? nextExecutionTime, ScheduleRecurringWeeklyData inputData)
-        {
-            return nextExecutionTime == null ? startTime : AddTime(nextExecutionTime.Value, inputData);
         }
         private static int GetWeekInYear(DateTime date)
         {            
@@ -183,17 +170,20 @@ namespace EjercicioFormacion
                 description = GetDescription(null,this.data);
                 return null;
             }
+            DateTime? nextExecutionTime;
             try
             {
-                this.nextExecutionTime = CalculateNextExecutionTime(this.startTime,this.nextExecutionTime,this.data);
-            } catch (ArgumentOutOfRangeException)
-            {
-                throw new ArgumentOutOfRangeException("has exceeded the maximum allowed date value.");
+                nextExecutionTime  = CalculateNextExecutionTime(this.lastExecutionTime,this.data);
             }
-            if (IsInTime(this.nextExecutionTime.Value,this.data))
+            catch (ArgumentOutOfRangeException ex)
+            {                
+                throw new ArgumentOutOfRangeException("has exceeded the maximum allowed date value.",ex);
+            }
+            if (IsInTime(nextExecutionTime.Value,this.data))
             {
-                description = GetDescription(this.nextExecutionTime,this.data);
-                return this.nextExecutionTime;
+                description = GetDescription(nextExecutionTime,this.data);
+                this.lastExecutionTime = nextExecutionTime;
+                return nextExecutionTime;
             }
             description = GetDescription(null,this.data);
             return null;

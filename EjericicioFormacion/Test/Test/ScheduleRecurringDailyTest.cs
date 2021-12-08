@@ -189,7 +189,8 @@ namespace Test.Test
                 StartHour = new TimeSpan(04, 00, 00),
                 EndHour = new TimeSpan(08, 00, 00)
             };
-            FluentActions.Invoking(() => new ScheduleRecurringDaily(new ScheduleData(data))).Should().ThrowExactly<ArgumentOutOfRangeException>();
+            var schedule = new ScheduleRecurringDaily(new ScheduleData(data));
+            FluentActions.Invoking(() => schedule.GetNextExecutionTime(out _)).Should().ThrowExactly<ArgumentOutOfRangeException>();
         }
         [Fact]
         public void ScheduleRecurringDaily_GoToDateTimeMaxVaule_return_correct_exception()
