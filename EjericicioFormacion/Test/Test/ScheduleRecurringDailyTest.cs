@@ -27,7 +27,7 @@ namespace Test.Test
         {
             var data = new ScheduleRecurringDailyData(new DateTime(2020, 01, 04), new DateTime(2020, 01, 01))
             {
-                EndDate = new DateTime(2020, 02, 01),
+                EndDate = new DateTime(2020, 02, 01),                
                 DaysBetweenExecutions = 1
             };
             var schedule = new ScheduleRecurringDaily(new ScheduleData(data));

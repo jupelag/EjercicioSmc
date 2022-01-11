@@ -70,7 +70,7 @@ namespace EjercicioFormacion
             {
                 nextExecutionTime = new DateTime(currentDate.Year, currentDate.Month, currentDate.Day).AddTicks(inputData.StartHour.Value.Ticks);
             }
-            if (currentDate.DayOfYear.Equals(inputData.StartDate.DayOfYear) && currentDate.TimeOfDay > inputData.EndHour)
+            if (currentDate.TimeOfDay > inputData.EndHour)
             {
                 nextExecutionTime = AddTime(currentDate,inputData);
             }

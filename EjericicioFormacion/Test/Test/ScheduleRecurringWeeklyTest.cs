@@ -44,7 +44,7 @@ namespace Test.Test
         {
             var data = new ScheduleRecurringWeeklyData(new DateTime(2020,01,01), new DateTime(2020, 01, 01))
             {
-                EndDate = new DateTime(2020, 01, 18),
+                EndDate = new DateTime(2020, 01, 18),                
                 WeeksBetweenExecutions = 2,
                 HoursBetweenExecutions = 2,
                 StartHour = new TimeSpan(04, 00, 00),
@@ -165,8 +165,7 @@ namespace Test.Test
                 EndHour = new TimeSpan(08, 00, 00),
                 ExecutionDays = (DaysOfTheWeek)127
             };
-            var schedule = new ScheduleRecurringWeekly(new ScheduleData(data));
-            //schedule.GetNextExecutionTime(out _).Should().Be(new DateTime(2020, 01, 01, 04, 00, 00));
+            var schedule = new ScheduleRecurringWeekly(new ScheduleData(data));            
             schedule.GetNextExecutionTime(out _).Should().Be(new DateTime(2020, 01, 01, 06, 00, 00));
             schedule.GetNextExecutionTime(out _).Should().Be(new DateTime(2020, 01, 01, 08, 00, 00));
         }
@@ -174,6 +173,23 @@ namespace Test.Test
         public void ScheduleRecurringWeekly_CurrentDate_Equals_StarDate_Bigger_endHour_Return_Correct_Date()
         {
             var data = new ScheduleRecurringWeeklyData(new DateTime(2020, 01, 01, 10, 00, 00), new DateTime(2020, 01, 01))
+            {
+                EndDate = new DateTime(2020, 01, 03),
+                WeeksBetweenExecutions = 2,
+                SecsBetweenExecutions = 7200,
+                StartHour = new TimeSpan(04, 00, 00),
+                EndHour = new TimeSpan(08, 00, 00),
+                ExecutionDays = (DaysOfTheWeek)127
+            };
+            var schedule = new ScheduleRecurringWeekly(new ScheduleData(data));
+            schedule.GetNextExecutionTime(out _).Should().Be(new DateTime(2020, 01, 02, 04, 00, 00));
+            schedule.GetNextExecutionTime(out _).Should().Be(new DateTime(2020, 01, 02, 06, 00, 00));
+            schedule.GetNextExecutionTime(out _).Should().Be(new DateTime(2020, 01, 02, 08, 00, 00));
+        }
+        [Fact]
+        public void ScheduleRecurringWeekly_CurrentDate_Equals_StarDate_Bigger_endHour_Diferent_Day_Return_Correct_Date()
+        {
+            var data = new ScheduleRecurringWeeklyData(new DateTime(2020, 01, 01, 10, 00, 00), new DateTime(2019, 12, 31))
             {
                 EndDate = new DateTime(2020, 01, 03),
                 WeeksBetweenExecutions = 2,
