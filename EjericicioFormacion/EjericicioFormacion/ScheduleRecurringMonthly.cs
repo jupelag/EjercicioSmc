@@ -19,12 +19,17 @@ namespace EjercicioFormacion
             : base(inputData)
         {
             if (inputData == null) throw new ArgumentNullException(nameof(inputData));
-            if (inputData.RecurringMonthlyData == null) throw new ArgumentNullException(nameof(inputData.RecurringMonthlyData));
+            if (inputData.RecurringMonthlyData == null) throw new ArgumentNullException(nameof(inputData.RecurringMonthlyData));            
             this.data = inputData.RecurringMonthlyData;
-            if (this.data.MonthsBetweenExecutions < 0) throw new FormatException("Weeks between executions must be bigger than 0");
+            if (this.data.MonthsBetweenExecutions <= 0) throw new FormatException("Weeks between executions must be bigger than 0");
             if (this.data.HoursBetweenExecutions < 0) throw new FormatException("Hours between executions must be bigger than 0");
             if (this.data.MinsBetweenExecutions < 0) throw new FormatException("Minutes between executions must be bigger than 0");
             if (this.data.SecsBetweenExecutions < 0) throw new FormatException("Seconds between executions must be bigger than 0");
+            if (this.data.HoursBetweenExecutions <= 0 && this.data.MinsBetweenExecutions <= 0 && this.data.SecsBetweenExecutions <= 0)
+            {
+                throw new FormatException("TimeBetweenExecutions have to be configurated");
+            }
+            if (this.data.ExecutionDays == 0) throw new ArgumentException("ExecutionDays have to be configurated");
         }
         private bool IsScheduleInExecution => this.scheduleRecurringDialy != null;
         private static MonthlyExecutionDays GetMonthExecution(DayOfWeek day)
@@ -105,6 +110,11 @@ namespace EjercicioFormacion
         }
         public override DateTime? GetNextExecutionTime(out string description)
         {
+            if (this.Enabled == false || this.data.CurrentDate > this.data.EndDate)
+            {
+                description = GetDescription(null, this.data);
+                return null;
+            }
             var currentDate = this.data.CurrentDate;
             DateTime? nextExecutionTime;
             
@@ -113,10 +123,11 @@ namespace EjercicioFormacion
                 nextExecutionTime = this.scheduleRecurringDialy.GetNextExecutionTime(out _);
                 bool IsCurrentDayFinished = nextExecutionTime == null;
                 if (!IsCurrentDayFinished)
-                {
+                {                    
+                    nextExecutionTime = CheckIfIsInDate(nextExecutionTime, this.data);
                     this.lastExecutionTime = nextExecutionTime;
                     description = GetDescription(nextExecutionTime, this.data);
-                    return nextExecutionTime;
+                    return CheckIfIsInDate(nextExecutionTime, this.data);
                 }
                 currentDate = GetDateChangingMonth();
             }
@@ -124,10 +135,19 @@ namespace EjercicioFormacion
             DateTime nextDay = GetNextExecutionDay(currentDate);
             ScheduleRecurringDailyData recurringDailyData = GetScheduleRecurringData(nextDay);
             nextExecutionTime = ExecuteScheduleRecurringData(recurringDailyData);
+            nextExecutionTime = CheckIfIsInDate(nextExecutionTime, this.data);
             description = GetDescription(nextExecutionTime, this.data);
             return nextExecutionTime;
         }
-
+        private DateTime? CheckIfIsInDate(DateTime? date, ScheduleRecurringMonthlyData inputData)
+        {
+            if (date == null) return null;
+            return IsInTime(date.Value,inputData) ? date : null;
+        }
+        private static bool IsInTime(DateTime date, ScheduleRecurringMonthlyData inputData)
+        {
+            return date.IsInPeriod(inputData.StartDate, inputData.EndDate) && date.TimeOfDay.IsInTime(inputData.StartHour, inputData.EndHour);
+        }
         private DateTime GetNextExecutionDay(DateTime currentDate)
         {
             DateTime nextDay;
@@ -180,7 +200,7 @@ namespace EjercicioFormacion
                 StartHour = this.data.StartHour,
                 EndHour = this.data.EndHour,
                 HoursBetweenExecutions = this.data.HoursBetweenExecutions,
-                DaysBetweenExecutions = 1
+                DaysBetweenExecutions = 1,                
             };
         }
     }

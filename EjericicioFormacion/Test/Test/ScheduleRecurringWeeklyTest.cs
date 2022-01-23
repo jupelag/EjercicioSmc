@@ -204,7 +204,7 @@ namespace Test.Test
             schedule.GetNextExecutionTime(out _).Should().Be(new DateTime(2020, 01, 02, 08, 00, 00));
         }
         [Fact]
-        public void ScheduleRecurringWeekly_Enabled_False_Retun_null_and_Correct_Message()
+        public void ScheduleRecurringWeekly_Enabled_False_Return_null_and_Correct_Message()
         {
             var data = new ScheduleRecurringWeeklyData(new DateTime(2020, 01, 01,10,00,00), new DateTime(2020, 01, 01))
             {
@@ -217,8 +217,7 @@ namespace Test.Test
             };
             var schedule = new ScheduleRecurringWeekly(new ScheduleData(data));
             schedule.Enabled = false;
-            string message;
-            schedule.GetNextExecutionTime(out message).Should().Be(null);
+            schedule.GetNextExecutionTime(out string message).Should().Be(null);
             message.Should().Be("Occurs Recurring Weekly. Schedule will not be used");
         }
         [Fact]
@@ -227,10 +226,8 @@ namespace Test.Test
             var data = new ScheduleRecurringWeeklyData(new DateTime(2020, 01, 01, 10, 00, 00), new DateTime(2020, 01, 01))
             {
                 EndDate = new DateTime(2020, 01, 03),
-                WeeksBetweenExecutions = 2,
-                SecsBetweenExecutions = -1,
-                HoursBetweenExecutions = -1,
-                MinsBetweenExecutions = -1,
+                WeeksBetweenExecutions = 2,                
+                HoursBetweenExecutions = -1,                
                 StartHour = new TimeSpan(04, 00, 00),
                 EndHour = new TimeSpan(08, 00, 00),
                 ExecutionDays = (DaysOfTheWeek)127
@@ -265,6 +262,37 @@ namespace Test.Test
             };            
             FluentActions.Invoking(() => new ScheduleRecurringWeekly(new ScheduleData(data))).Should().ThrowExactly<FormatException>();
         }
-
+        [Fact]
+        public void ScheduleRecurringWeekly_NullData_Return_Correct_Exception()
+        {
+            FluentActions.Invoking(() => new ScheduleRecurringWeekly(null)).Should().ThrowExactly<ArgumentNullException>();
+        }
+        [Fact]
+        public void ScheduleRecurringWeekly_TimeSpanBetweenExecutions_Not_Configurated_Return_Correct_Exception()
+        {
+            var data = new ScheduleRecurringWeeklyData(new DateTime(2020, 01, 01, 10, 00, 00), new DateTime(2020, 01, 01))
+            {
+                EndDate = new DateTime(2020, 01, 03),
+                WeeksBetweenExecutions = 2,
+                StartHour = new TimeSpan(04, 00, 00),
+                EndHour = new TimeSpan(08, 00, 00),
+                ExecutionDays = (DaysOfTheWeek)127
+            };
+            FluentActions.Invoking(() => new ScheduleRecurringWeekly(new ScheduleData(data))).Should().ThrowExactly<FormatException>();
+        }
+        [Fact]
+        public void ScheduleRecurringWeekly_WeeksBetweenExecutions_Zero_Return_Correct_Exception()
+        {
+            var data = new ScheduleRecurringWeeklyData(new DateTime(2020, 01, 01, 10, 00, 00), new DateTime(2020, 01, 01))
+            {
+                EndDate = new DateTime(2020, 01, 03),
+                WeeksBetweenExecutions = 0,
+                SecsBetweenExecutions = 1,
+                StartHour = new TimeSpan(04, 00, 00),
+                EndHour = new TimeSpan(08, 00, 00),
+                ExecutionDays = (DaysOfTheWeek)127
+            };
+            FluentActions.Invoking(() => new ScheduleRecurringWeekly(new ScheduleData(data))).Should().ThrowExactly<FormatException>();
+        }
     }
 }

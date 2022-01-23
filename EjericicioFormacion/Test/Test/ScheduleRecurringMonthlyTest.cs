@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Xunit;
 using FluentAssertions;
 using EjercicioFormacion;
+using EjercicioFormacion.Enumerations;
 
 namespace Test.Test
 {
@@ -17,8 +18,8 @@ namespace Test.Test
         {
             var data = new ScheduleRecurringMonthlyData(new DateTime(2022, 01, 10, 03, 00, 00), new DateTime(2022, 01, 01))
             {
-                OrdinalDay = EjercicioFormacion.Enumerations.Ordinals.First,
-                ExecutionDays = EjercicioFormacion.Enumerations.MonthlyExecutionDays.Wednesday,
+                OrdinalDay = Ordinals.First,
+                ExecutionDays = MonthlyExecutionDays.Wednesday,
                 MonthsBetweenExecutions = 3,
                 StartHour = new TimeSpan(03, 00, 00),
                 EndHour = new TimeSpan(06, 00, 00),
@@ -36,8 +37,8 @@ namespace Test.Test
         {
             var data = new ScheduleRecurringMonthlyData(new DateTime(2022, 01, 10, 03, 00, 00), new DateTime(2022, 01, 01))
             {
-                OrdinalDay = EjercicioFormacion.Enumerations.Ordinals.First,
-                ExecutionDays = EjercicioFormacion.Enumerations.MonthlyExecutionDays.WeekendDay,
+                OrdinalDay = Ordinals.First,
+                ExecutionDays = MonthlyExecutionDays.WeekendDay,
                 MonthsBetweenExecutions = 3,
                 StartHour = new TimeSpan(03, 00, 00),
                 EndHour = new TimeSpan(06, 00, 00),
@@ -55,8 +56,8 @@ namespace Test.Test
         {
             var data = new ScheduleRecurringMonthlyData(new DateTime(2022, 01, 10, 03, 00, 00), new DateTime(2022, 01, 01))
             {
-                OrdinalDay = EjercicioFormacion.Enumerations.Ordinals.First,
-                ExecutionDays = EjercicioFormacion.Enumerations.MonthlyExecutionDays.Weekday,
+                OrdinalDay = Ordinals.First,
+                ExecutionDays = MonthlyExecutionDays.Weekday,
                 MonthsBetweenExecutions = 3,
                 StartHour = new TimeSpan(03, 00, 00),
                 EndHour = new TimeSpan(06, 00, 00),
@@ -73,8 +74,8 @@ namespace Test.Test
         {
             var data = new ScheduleRecurringMonthlyData(new DateTime(2022, 01, 10, 03, 00, 00), new DateTime(2022, 01, 01))
             {
-                OrdinalDay = EjercicioFormacion.Enumerations.Ordinals.First,
-                ExecutionDays = EjercicioFormacion.Enumerations.MonthlyExecutionDays.Day,
+                OrdinalDay = Ordinals.First,
+                ExecutionDays = MonthlyExecutionDays.Day,
                 MonthsBetweenExecutions = 3,
                 StartHour = new TimeSpan(03, 00, 00),
                 EndHour = new TimeSpan(06, 00, 00),
@@ -91,8 +92,8 @@ namespace Test.Test
         {
             var data = new ScheduleRecurringMonthlyData(new DateTime(2022, 01, 10, 07, 00, 00), new DateTime(2022, 01, 01))
             {
-                OrdinalDay = EjercicioFormacion.Enumerations.Ordinals.First,
-                ExecutionDays = EjercicioFormacion.Enumerations.MonthlyExecutionDays.Day,
+                OrdinalDay = Ordinals.First,
+                ExecutionDays = MonthlyExecutionDays.Day,
                 MonthsBetweenExecutions = 3,
                 StartHour = new TimeSpan(03, 00, 00),
                 EndHour = new TimeSpan(06, 00, 00),
@@ -110,18 +111,18 @@ namespace Test.Test
         {
             var data = new ScheduleRecurringMonthlyData(new DateTime(2022, 01, 10, 02, 00, 00), new DateTime(2022, 01, 01))
             {
-                OrdinalDay = EjercicioFormacion.Enumerations.Ordinals.First,
-                ExecutionDays = EjercicioFormacion.Enumerations.MonthlyExecutionDays.Day,
+                OrdinalDay = Ordinals.First,
+                ExecutionDays = MonthlyExecutionDays.Day,
                 MonthsBetweenExecutions = 3,
                 StartHour = new TimeSpan(03, 00, 00),
                 EndHour = new TimeSpan(06, 00, 00),
                 HoursBetweenExecutions = 1
             };
             var schedule = new ScheduleRecurringMonthly(new ScheduleData(data));
-            schedule.GetNextExecutionTime(out _).Should().Be(new DateTime(2022, 01, 11, 03, 00, 00));
-            schedule.GetNextExecutionTime(out _).Should().Be(new DateTime(2022, 01, 11, 04, 00, 00));
-            schedule.GetNextExecutionTime(out _).Should().Be(new DateTime(2022, 01, 11, 05, 00, 00));
-            schedule.GetNextExecutionTime(out _).Should().Be(new DateTime(2022, 01, 11, 06, 00, 00));
+            schedule.GetNextExecutionTime(out _).Should().Be(new DateTime(2022, 01, 10, 03, 00, 00));
+            schedule.GetNextExecutionTime(out _).Should().Be(new DateTime(2022, 01, 10, 04, 00, 00));
+            schedule.GetNextExecutionTime(out _).Should().Be(new DateTime(2022, 01, 10, 05, 00, 00));
+            schedule.GetNextExecutionTime(out _).Should().Be(new DateTime(2022, 01, 10, 06, 00, 00));
             schedule.GetNextExecutionTime(out _).Should().Be(new DateTime(2022, 04, 01, 03, 00, 00));
         }
         [Fact]
@@ -129,8 +130,8 @@ namespace Test.Test
         {
             var data = new ScheduleRecurringMonthlyData(new DateTime(2022, 01, 10, 02, 00, 00), new DateTime(2022, 01, 01))
             {
-                OrdinalDay = EjercicioFormacion.Enumerations.Ordinals.First,
-                ExecutionDays = EjercicioFormacion.Enumerations.MonthlyExecutionDays.Day,
+                OrdinalDay = Ordinals.First,
+                ExecutionDays = MonthlyExecutionDays.Day,
                 MonthsBetweenExecutions = 3,
                 StartHour = new TimeSpan(03, 00, 00),
                 EndHour = new TimeSpan(06, 00, 00),
@@ -148,8 +149,8 @@ namespace Test.Test
         {
             var data = new ScheduleRecurringMonthlyData(new DateTime(2022, 01, 10, 03, 00, 00), new DateTime(2022, 01, 01))
             {
-                OrdinalDay = EjercicioFormacion.Enumerations.Ordinals.Second,
-                ExecutionDays = EjercicioFormacion.Enumerations.MonthlyExecutionDays.Wednesday,
+                OrdinalDay = Ordinals.Second,
+                ExecutionDays = MonthlyExecutionDays.Wednesday,
                 MonthsBetweenExecutions = 3,
                 StartHour = new TimeSpan(03, 00, 00),
                 EndHour = new TimeSpan(06, 00, 00),
@@ -167,8 +168,8 @@ namespace Test.Test
         {
             var data = new ScheduleRecurringMonthlyData(new DateTime(2022, 01, 10, 03, 00, 00), new DateTime(2022, 01, 01))
             {
-                OrdinalDay = EjercicioFormacion.Enumerations.Ordinals.Second,
-                ExecutionDays = EjercicioFormacion.Enumerations.MonthlyExecutionDays.WeekendDay,
+                OrdinalDay = Ordinals.Second,
+                ExecutionDays = MonthlyExecutionDays.WeekendDay,
                 MonthsBetweenExecutions = 3,
                 StartHour = new TimeSpan(03, 00, 00),
                 EndHour = new TimeSpan(06, 00, 00),
@@ -186,8 +187,8 @@ namespace Test.Test
         {
             var data = new ScheduleRecurringMonthlyData(new DateTime(2022, 01, 10, 03, 00, 00), new DateTime(2022, 01, 01))
             {
-                OrdinalDay = EjercicioFormacion.Enumerations.Ordinals.Second,
-                ExecutionDays = EjercicioFormacion.Enumerations.MonthlyExecutionDays.Weekday,
+                OrdinalDay = Ordinals.Second,
+                ExecutionDays = MonthlyExecutionDays.Weekday,
                 MonthsBetweenExecutions = 3,
                 StartHour = new TimeSpan(03, 00, 00),
                 EndHour = new TimeSpan(06, 00, 00),
@@ -205,8 +206,8 @@ namespace Test.Test
         {
             var data = new ScheduleRecurringMonthlyData(new DateTime(2022, 01, 10, 03, 00, 00), new DateTime(2022, 01, 01))
             {
-                OrdinalDay = EjercicioFormacion.Enumerations.Ordinals.Second,
-                ExecutionDays = EjercicioFormacion.Enumerations.MonthlyExecutionDays.Day,
+                OrdinalDay = Ordinals.Second,
+                ExecutionDays = MonthlyExecutionDays.Day,
                 MonthsBetweenExecutions = 3,
                 StartHour = new TimeSpan(03, 00, 00),
                 EndHour = new TimeSpan(06, 00, 00),
@@ -224,8 +225,8 @@ namespace Test.Test
         {
             var data = new ScheduleRecurringMonthlyData(new DateTime(2022, 01, 5, 03, 00, 00), new DateTime(2022, 01, 01))
             {
-                OrdinalDay = EjercicioFormacion.Enumerations.Ordinals.Third,
-                ExecutionDays = EjercicioFormacion.Enumerations.MonthlyExecutionDays.Wednesday,
+                OrdinalDay = Ordinals.Third,
+                ExecutionDays = MonthlyExecutionDays.Wednesday,
                 MonthsBetweenExecutions = 3,
                 StartHour = new TimeSpan(03, 00, 00),
                 EndHour = new TimeSpan(06, 00, 00),
@@ -243,8 +244,8 @@ namespace Test.Test
         {
             var data = new ScheduleRecurringMonthlyData(new DateTime(2022, 01, 10, 03, 00, 00), new DateTime(2022, 01, 01))
             {
-                OrdinalDay = EjercicioFormacion.Enumerations.Ordinals.Third,
-                ExecutionDays = EjercicioFormacion.Enumerations.MonthlyExecutionDays.WeekendDay,
+                OrdinalDay = Ordinals.Third,
+                ExecutionDays = MonthlyExecutionDays.WeekendDay,
                 MonthsBetweenExecutions = 3,
                 StartHour = new TimeSpan(03, 00, 00),
                 EndHour = new TimeSpan(06, 00, 00),
@@ -262,8 +263,8 @@ namespace Test.Test
         {
             var data = new ScheduleRecurringMonthlyData(new DateTime(2022, 01, 10, 03, 00, 00), new DateTime(2022, 01, 01))
             {
-                OrdinalDay = EjercicioFormacion.Enumerations.Ordinals.Third,
-                ExecutionDays = EjercicioFormacion.Enumerations.MonthlyExecutionDays.Weekday,
+                OrdinalDay = Ordinals.Third,
+                ExecutionDays = MonthlyExecutionDays.Weekday,
                 MonthsBetweenExecutions = 3,
                 StartHour = new TimeSpan(03, 00, 00),
                 EndHour = new TimeSpan(06, 00, 00),
@@ -281,8 +282,8 @@ namespace Test.Test
         {
             var data = new ScheduleRecurringMonthlyData(new DateTime(2022, 01, 10, 03, 00, 00), new DateTime(2022, 01, 01))
             {
-                OrdinalDay = EjercicioFormacion.Enumerations.Ordinals.Third,
-                ExecutionDays = EjercicioFormacion.Enumerations.MonthlyExecutionDays.Day,
+                OrdinalDay = Ordinals.Third,
+                ExecutionDays = MonthlyExecutionDays.Day,
                 MonthsBetweenExecutions = 3,
                 StartHour = new TimeSpan(03, 00, 00),
                 EndHour = new TimeSpan(06, 00, 00),
@@ -300,8 +301,8 @@ namespace Test.Test
         {
             var data = new ScheduleRecurringMonthlyData(new DateTime(2022, 01, 10, 03, 00, 00), new DateTime(2022, 01, 01))
             {
-                OrdinalDay = EjercicioFormacion.Enumerations.Ordinals.Fourth,
-                ExecutionDays = EjercicioFormacion.Enumerations.MonthlyExecutionDays.Wednesday,
+                OrdinalDay = Ordinals.Fourth,
+                ExecutionDays = MonthlyExecutionDays.Wednesday,
                 MonthsBetweenExecutions = 3,
                 StartHour = new TimeSpan(03, 00, 00),
                 EndHour = new TimeSpan(06, 00, 00),
@@ -319,8 +320,8 @@ namespace Test.Test
         {
             var data = new ScheduleRecurringMonthlyData(new DateTime(2022, 01, 10, 03, 00, 00), new DateTime(2022, 01, 01))
             {
-                OrdinalDay = EjercicioFormacion.Enumerations.Ordinals.Fourth,
-                ExecutionDays = EjercicioFormacion.Enumerations.MonthlyExecutionDays.WeekendDay,
+                OrdinalDay = Ordinals.Fourth,
+                ExecutionDays = MonthlyExecutionDays.WeekendDay,
                 MonthsBetweenExecutions = 3,
                 StartHour = new TimeSpan(03, 00, 00),
                 EndHour = new TimeSpan(06, 00, 00),
@@ -338,8 +339,8 @@ namespace Test.Test
         {
             var data = new ScheduleRecurringMonthlyData(new DateTime(2022, 01, 10, 03, 00, 00), new DateTime(2022, 01, 01))
             {
-                OrdinalDay = EjercicioFormacion.Enumerations.Ordinals.Fourth,
-                ExecutionDays = EjercicioFormacion.Enumerations.MonthlyExecutionDays.Weekday,
+                OrdinalDay = Ordinals.Fourth,
+                ExecutionDays = MonthlyExecutionDays.Weekday,
                 MonthsBetweenExecutions = 3,
                 StartHour = new TimeSpan(03, 00, 00),
                 EndHour = new TimeSpan(06, 00, 00),
@@ -357,8 +358,8 @@ namespace Test.Test
         {
             var data = new ScheduleRecurringMonthlyData(new DateTime(2022, 01, 10, 03, 00, 00), new DateTime(2022, 01, 01))
             {
-                OrdinalDay = EjercicioFormacion.Enumerations.Ordinals.Fourth,
-                ExecutionDays = EjercicioFormacion.Enumerations.MonthlyExecutionDays.Day,
+                OrdinalDay = Ordinals.Fourth,
+                ExecutionDays = MonthlyExecutionDays.Day,
                 MonthsBetweenExecutions = 3,
                 StartHour = new TimeSpan(03, 00, 00),
                 EndHour = new TimeSpan(06, 00, 00),
@@ -376,8 +377,8 @@ namespace Test.Test
         {
             var data = new ScheduleRecurringMonthlyData(new DateTime(2022, 01, 10, 03, 00, 00), new DateTime(2022, 01, 01))
             {
-                OrdinalDay = EjercicioFormacion.Enumerations.Ordinals.Last,
-                ExecutionDays = EjercicioFormacion.Enumerations.MonthlyExecutionDays.Wednesday,
+                OrdinalDay = Ordinals.Last,
+                ExecutionDays = MonthlyExecutionDays.Wednesday,
                 MonthsBetweenExecutions = 3,
                 StartHour = new TimeSpan(03, 00, 00),
                 EndHour = new TimeSpan(06, 00, 00),
@@ -395,8 +396,8 @@ namespace Test.Test
         {
             var data = new ScheduleRecurringMonthlyData(new DateTime(2022, 01, 10, 03, 00, 00), new DateTime(2022, 01, 01))
             {
-                OrdinalDay = EjercicioFormacion.Enumerations.Ordinals.Last,
-                ExecutionDays = EjercicioFormacion.Enumerations.MonthlyExecutionDays.WeekendDay,
+                OrdinalDay = Ordinals.Last,
+                ExecutionDays = MonthlyExecutionDays.WeekendDay,
                 MonthsBetweenExecutions = 3,
                 StartHour = new TimeSpan(03, 00, 00),
                 EndHour = new TimeSpan(06, 00, 00),
@@ -414,8 +415,8 @@ namespace Test.Test
         {
             var data = new ScheduleRecurringMonthlyData(new DateTime(2022, 01, 10, 03, 00, 00), new DateTime(2022, 01, 01))
             {
-                OrdinalDay = EjercicioFormacion.Enumerations.Ordinals.Last,
-                ExecutionDays = EjercicioFormacion.Enumerations.MonthlyExecutionDays.Weekday,
+                OrdinalDay = Ordinals.Last,
+                ExecutionDays = MonthlyExecutionDays.Weekday,
                 MonthsBetweenExecutions = 3,
                 StartHour = new TimeSpan(03, 00, 00),
                 EndHour = new TimeSpan(06, 00, 00),
@@ -433,8 +434,8 @@ namespace Test.Test
         {
             var data = new ScheduleRecurringMonthlyData(new DateTime(2022, 01, 10, 03, 00, 00), new DateTime(2022, 01, 01))
             {
-                OrdinalDay = EjercicioFormacion.Enumerations.Ordinals.Last,
-                ExecutionDays = EjercicioFormacion.Enumerations.MonthlyExecutionDays.Day,
+                OrdinalDay = Ordinals.Last,
+                ExecutionDays = MonthlyExecutionDays.Day,
                 MonthsBetweenExecutions = 3,
                 StartHour = new TimeSpan(03, 00, 00),
                 EndHour = new TimeSpan(06, 00, 00),
@@ -452,8 +453,8 @@ namespace Test.Test
         {
             var data = new ScheduleRecurringMonthlyData(new DateTime(2022, 12, 31, 03, 00, 00), new DateTime(2022, 01, 01))
             {
-                OrdinalDay = EjercicioFormacion.Enumerations.Ordinals.Last,
-                ExecutionDays = EjercicioFormacion.Enumerations.MonthlyExecutionDays.Day,
+                OrdinalDay = Ordinals.Last,
+                ExecutionDays = MonthlyExecutionDays.Day,
                 MonthsBetweenExecutions = 3,
                 StartHour = new TimeSpan(03, 00, 00),
                 EndHour = new TimeSpan(06, 00, 00),
@@ -471,8 +472,8 @@ namespace Test.Test
         {
             var data = new ScheduleRecurringMonthlyData(new DateTime(2022, 12, 31, 03, 00, 00), new DateTime(2022, 01, 01))
             {
-                OrdinalDay = EjercicioFormacion.Enumerations.Ordinals.Last,
-                ExecutionDays = EjercicioFormacion.Enumerations.MonthlyExecutionDays.Day,
+                OrdinalDay = Ordinals.Last,
+                ExecutionDays = MonthlyExecutionDays.Day,
                 MonthsBetweenExecutions = 3,
                 StartHour = new TimeSpan(03, 00, 00),
                 EndHour = new TimeSpan(06, 00, 00),
@@ -481,6 +482,153 @@ namespace Test.Test
             var schedule = new ScheduleRecurringMonthly(new ScheduleData(data));
             schedule.GetNextExecutionTime(out string description).Should().Be(new DateTime(2022, 12, 31, 03, 00, 00));
             description.Should().Be("Occurs the Last Day of every 3 months every 1 hours, 0 minutes, 0 seconds between 03:00:00 and 06:00:00 starting on 01/01/2022 0:00:00");
+        }
+        [Fact]
+        public void ScheduleRecurringMonthly_ExecutionDays_Not_Configurated_Return_Correct_Exception()
+        {
+            var data = new ScheduleRecurringMonthlyData(new DateTime(2020, 01, 01, 10, 00, 00), new DateTime(2020, 01, 01))
+            {
+                EndDate = new DateTime(2020, 01, 03),
+                MonthsBetweenExecutions = 2,
+                SecsBetweenExecutions = 7200,
+                StartHour = new TimeSpan(04, 00, 00),
+                EndHour = new TimeSpan(08, 00, 00),
+            };
+            FluentActions.Invoking(() => new ScheduleRecurringMonthly(new ScheduleData(data))).Should().ThrowExactly<ArgumentException>();
+        }
+        [Fact]
+        public void ScheduleRecurringMonthly_MonthsBetweenExecutions_Not_Configurated()
+        {
+            var data = new ScheduleRecurringMonthlyData(new DateTime(2022, 12, 31, 03, 00, 00), new DateTime(2022, 01, 01))
+            {
+                OrdinalDay = Ordinals.Last,
+                ExecutionDays = MonthlyExecutionDays.Day,                
+                StartHour = new TimeSpan(03, 00, 00),
+                EndHour = new TimeSpan(06, 00, 00),
+                HoursBetweenExecutions = 1
+            };
+            FluentActions.Invoking(() => new ScheduleRecurringMonthly(new ScheduleData(data))).Should().ThrowExactly<FormatException>();
+        }
+        [Fact]
+        public void ScheduleRecurringMonthly_MonthsBetweenExecutions_Zero_Return_Correct_Exception()
+        {
+            var data = new ScheduleRecurringMonthlyData(new DateTime(2022, 12, 31, 03, 00, 00), new DateTime(2022, 01, 01))
+            {
+                OrdinalDay = Ordinals.Last,
+                ExecutionDays = MonthlyExecutionDays.Day,
+                StartHour = new TimeSpan(03, 00, 00),
+                EndHour = new TimeSpan(06, 00, 00),
+                HoursBetweenExecutions = 1,
+                MonthsBetweenExecutions = 0
+            };
+            FluentActions.Invoking(() => new ScheduleRecurringMonthly(new ScheduleData(data))).Should().ThrowExactly<FormatException>();
+        }
+        [Fact]
+        public void ScheduleRecurringMonthly_TimeSpanBetweenExecutions_Not_Configurated_Return_Correct_Exception()
+        {
+            var data = new ScheduleRecurringMonthlyData(new DateTime(2022, 12, 31, 03, 00, 00), new DateTime(2022, 01, 01))
+            {
+                OrdinalDay = Ordinals.Last,
+                ExecutionDays = MonthlyExecutionDays.Day,
+                StartHour = new TimeSpan(03, 00, 00),
+                EndHour = new TimeSpan(06, 00, 00),                
+                MonthsBetweenExecutions = 2
+            };            
+            FluentActions.Invoking(() => new ScheduleRecurringMonthly(new ScheduleData(data))).Should().ThrowExactly<FormatException>();
+        }
+        [Fact]
+        public void ScheduleRecurringMonthly_Enabled_False_Return_null_and_Correct_Message()
+        {
+            var data = new ScheduleRecurringMonthlyData(new DateTime(2020, 01, 01, 10, 00, 00), new DateTime(2020, 01, 01))
+            {
+                ExecutionDays = MonthlyExecutionDays.Friday,
+                EndDate = new DateTime(2020, 01, 03),
+                MonthsBetweenExecutions = 2,
+                SecsBetweenExecutions = 7200,
+                StartHour = new TimeSpan(04, 00, 00),
+                EndHour = new TimeSpan(08, 00, 00),                
+            };
+            var schedule = new ScheduleRecurringMonthly(new ScheduleData(data));
+            schedule.Enabled = false;
+            schedule.GetNextExecutionTime(out string message).Should().Be(null);
+            message.Should().Be("Occurs Recurring Monthly. Schedule will not be used");
+        }
+        [Fact]
+        public void ScheduleRecurringMonthly_GoToDateTimeMaxVaule_return_correct_exception()
+        {
+            var data = new ScheduleRecurringMonthlyData(new DateTime(9999, 12, 31), new DateTime(2020, 01, 01))
+            {
+                ExecutionDays = MonthlyExecutionDays.Friday,
+                HoursBetweenExecutions = 2,
+                StartHour = new TimeSpan(04, 00, 00),
+                EndHour = new TimeSpan(04, 00, 00),
+                MonthsBetweenExecutions = 2,
+            };
+            var schedule = new ScheduleRecurringMonthly(new ScheduleData(data));
+            schedule.GetNextExecutionTime(out _);
+            FluentActions.Invoking(() => schedule.GetNextExecutionTime(out _)).Should().ThrowExactly<ArgumentOutOfRangeException>();
+        }
+        [Fact]
+        public void ScheduleRecurringMonthly_NullData_Return_Correct_Exception()
+        {
+            FluentActions.Invoking(() => new ScheduleRecurringMonthly(null)).Should().ThrowExactly<ArgumentNullException>();
+        }
+        [Fact]
+        public void ScheduleRecurringMonthly_EndDate_Works()
+        {
+            var data = new ScheduleRecurringMonthlyData(new DateTime(2022, 01, 10, 03, 00, 00), new DateTime(2022, 01, 01))
+            {                
+                OrdinalDay = Ordinals.Last,
+                ExecutionDays = MonthlyExecutionDays.Day,
+                MonthsBetweenExecutions = 3,
+                StartHour = new TimeSpan(03, 00, 00),
+                EndHour = new TimeSpan(06, 00, 00),
+                HoursBetweenExecutions = 1,
+                EndDate = new DateTime(2022,02,01)
+            };
+            var schedule = new ScheduleRecurringMonthly(new ScheduleData(data));
+            schedule.GetNextExecutionTime(out _).Should().Be(new DateTime(2022, 01, 31, 03, 00, 00));
+            schedule.GetNextExecutionTime(out _).Should().Be(new DateTime(2022, 01, 31, 04, 00, 00));
+            schedule.GetNextExecutionTime(out _).Should().Be(new DateTime(2022, 01, 31, 05, 00, 00));
+            schedule.GetNextExecutionTime(out _).Should().Be(new DateTime(2022, 01, 31, 06, 00, 00));
+            schedule.GetNextExecutionTime(out _).Should().Be(null);
+        }
+        [Fact]
+        public void ScheduleRecurringMonthly_EndDate_Works_Correct_Description()
+        {
+            var data = new ScheduleRecurringMonthlyData(new DateTime(2022, 01, 10, 03, 00, 00), new DateTime(2022, 01, 01))
+            {                
+                OrdinalDay = Ordinals.Last,
+                ExecutionDays = MonthlyExecutionDays.Day,
+                MonthsBetweenExecutions = 3,
+                StartHour = new TimeSpan(03, 00, 00),
+                EndHour = new TimeSpan(06, 00, 00),
+                HoursBetweenExecutions = 1,
+                EndDate = new DateTime(2022, 02, 01)
+            };
+            var schedule = new ScheduleRecurringMonthly(new ScheduleData(data));
+            schedule.GetNextExecutionTime(out _);
+            schedule.GetNextExecutionTime(out _);
+            schedule.GetNextExecutionTime(out _);
+            schedule.GetNextExecutionTime(out _);
+            schedule.GetNextExecutionTime(out string description).Should().Be(null);
+            description.Should().Be("Occurs Recurring Monthly. Schedule will not be used");
+        }
+        [Fact]
+        public void ScheduleRecurringMonthly_CurrentDate_Bigger_Than_EndDate_Return_Null()
+        {
+            var data = new ScheduleRecurringMonthlyData(new DateTime(2022, 01, 10, 03, 00, 00), new DateTime(2022, 01, 01))
+            {
+                OrdinalDay = Ordinals.Last,
+                ExecutionDays = MonthlyExecutionDays.Day,
+                MonthsBetweenExecutions = 3,
+                StartHour = new TimeSpan(03, 00, 00),
+                EndHour = new TimeSpan(06, 00, 00),
+                HoursBetweenExecutions = 1,
+                EndDate = new DateTime(2020, 02, 01)
+            };
+            var schedule = new ScheduleRecurringMonthly(new ScheduleData(data));
+            schedule.GetNextExecutionTime(out _).Should().Be(null);
         }
     }
 }

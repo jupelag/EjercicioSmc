@@ -19,10 +19,14 @@ namespace EjercicioFormacion
             if(inputData == null) throw new ArgumentNullException(nameof(inputData));
             if (inputData.RecurringWeeklyData == null) throw new ArgumentNullException(nameof(inputData.RecurringWeeklyData));
             this.data = inputData.RecurringWeeklyData;
-            if (this.data.WeeksBetweenExecutions < 0) throw new FormatException("Weeks between executions must be bigger than 0");
+            if (this.data.WeeksBetweenExecutions <= 0) throw new FormatException("Weeks between executions must be bigger than 0");
             if (this.data.HoursBetweenExecutions < 0) throw new FormatException("Hours between executions must be bigger than 0");
             if (this.data.MinsBetweenExecutions < 0) throw new FormatException("Minutes between executions must be bigger than 0");
             if (this.data.SecsBetweenExecutions < 0) throw new FormatException("Seconds between executions must be bigger than 0");
+            if (this.data.HoursBetweenExecutions <= 0 && this.data.MinsBetweenExecutions <= 0 && this.data.SecsBetweenExecutions <= 0)
+            {
+                throw new FormatException("TimeBetweenExecutions have to be configurated");
+            }
         }
 
         private static string GetexecutionDays(ScheduleRecurringWeeklyData inputData)
